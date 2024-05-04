@@ -5,7 +5,7 @@ import { MdOutlineNightsStay } from "react-icons/md";
 import { WiDaySunny } from "react-icons/wi";
 
 const ThemeToggler = () => {
-    const { setColorScheme} = useMantineColorScheme();
+    const { setColorScheme} = useMantineColorScheme({keepTransitions : true});
     const [tog , setTog] = useState<boolean>(false)
 
    function toggler(){
@@ -18,7 +18,11 @@ const ThemeToggler = () => {
         setTog(!tog)
    }
   return (
-    <Button onClick={() => toggler()} className=' rounded-full bg-transparent'>{!tog? <MdOutlineNightsStay/> : <WiDaySunny/>}</Button>
+    <Button 
+    onClick={() => toggler()} 
+    className=' rounded-full bg-transparent p-0' variant='light'>
+        {!tog? <MdOutlineNightsStay color='white' size={25}/> : <WiDaySunny color='white' size={25}/>}
+    </Button>
   )
 }
 

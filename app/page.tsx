@@ -2,15 +2,24 @@ import Image from "next/image";
 import ielts from '.././public/ielts.png'
 import { Boogaloo } from "next/font/google";
 import { Button } from "@mantine/core";
+import { Pattaya } from "next/font/google";
 
 const georama = Boogaloo({
   weight : '400',
   subsets : ["latin"]
 })
 
+const pattaya = Pattaya({
+  weight : "400",
+  subsets :["latin"]
+})
+
 export default function Home() {
   return (
-    <main className=" min-h-screen">
+    <main className=" min-h-screen flex flex-col">
+      <section className={`${pattaya.className} text-3xl`}>
+        " Dedication has no limitation"
+      </section>
       <section className="flex w-screen">
           <section className="flex justify-between w-[90%] mx-auto items-center border p-4 rounded-xl shadow-md">
               <div className={`${georama.className} flex flex-col text-lg`}>
@@ -34,8 +43,8 @@ export default function Home() {
                 <br />
                 <div className="flex justify-around w-full items-center">
                   <div className="flex gap-5">
-                  <div>duration</div>
-                  <div>rating</div>
+                  <div>duration : 10 hours</div>
+                  <div>rating : *****</div>
                   </div>
                  
                   <Button  size="lg">Get Course</Button>
