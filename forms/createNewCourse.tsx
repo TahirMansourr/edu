@@ -7,6 +7,7 @@ import { IoContractSharp } from 'react-icons/io5';
 import { randomId } from '@mantine/hooks';
  import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/dropzone';
+import { MdDeleteOutline } from "react-icons/md";
 
 //required things
 //course content , place to drag and drop to upload video , each video should have a title , enter teachers participating to it
@@ -48,61 +49,32 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       }
 
       const videoFields = form.getValues().videos.map((item , index) =>(
-        <Group key={index} mt="xs" align='center'>
-        <TextInput
-          label = 'Video Title'
-          placeholder="Video Title"
-          withAsterisk
-          style={{ flex: 1 }}
-          key={form.key(`videos.${index}.title`)}
-          {...form.getInputProps(`videos.${index}.title`)}
-        />
-        <FileInput 
-        accept=''
-        {...form.getInputProps(`videos.${index}.video`)}
-        onChange={(e) => videoChange(e , index)}
-        />
-        {/* {previews} */}
-      {/* <Dropzone
-        onDrop={(files) => console.log('accepted files', files)}
-        onReject={(files) => console.log('rejected files', files)}
-        key={form.key(`videos.${index}.video`)}
-        accept={IMAGE_MIME_TYPE}
-       
-        {...props}
-        {...form.getInputProps(`videos.${index}.video`)}
-       >
-      <Group justify="center" gap="xl"  style={{ pointerEvents: 'none' }}>
-        <Dropzone.Accept>
-          <IconUpload
-            style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }}
-            stroke={1.5}
-          />
-        </Dropzone.Accept>
-        <Dropzone.Reject>
-          <IconX
-            style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }}
-            stroke={1.5}
-          />
-        </Dropzone.Reject>
-        <Dropzone.Idle>
-          <IconPhoto
-            style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }}
-            stroke={1.5}
-          />
-        </Dropzone.Idle>
-
-        <div>
-          <Text size="xl" inline>
-            Drag images here or click to select files
-          </Text>
-        </div>
-      </Group>
-      </Dropzone> */}      
-        <ActionIcon color="red" onClick={() => form.removeListItem('employees', index)}>
-          <IoContractSharp size="1rem" />
-        </ActionIcon>
-      </Group>
+        <div key={index} className=' flex gap-5 items-center justify-center align-middle '>
+            <div className=' flex gap-3'>
+            <TextInput
+                label = 'Video Title'
+                placeholder="Video Title"
+                withAsterisk
+                style={{ flex: 1 }}
+                key={form.key(`videos.${index}.title`)}
+                {...form.getInputProps(`videos.${index}.title`)}
+                />
+            <FileInput 
+                label = 'add video'
+                w={100}
+                placeholder = 'click to add video'
+                {...form.getInputProps(`videos.${index}.video`)}
+                onChange={(e) => videoChange(e , index)}
+                />
+            </div>
+        
+           <div className=' mt-6 pt-6'>
+            
+                <MdDeleteOutline size={40}  onClick={() => form.removeListItem('videos', index)} className=' mt-3' />
+            
+           </div>
+        
+      </div>
       ))
 
   return (
@@ -119,8 +91,9 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       mt="md"
       label="Course content"
       placeholder="Course Content"
+      className=' mb-3'
     />
-    <Box maw={500} mx="auto">
+    <Box maw={500} mx="auto" className=' pt-5 mt-5'>
       {videoFields}
       
       <Group justify="center" mt="md">
