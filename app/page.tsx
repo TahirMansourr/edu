@@ -54,7 +54,9 @@ export default function Home() {
                 src={ielts}
                 alt="Course Image"
                 width={300}
-                height={300} />
+                height={300} 
+                className=" rounded-lg shadow-lg"
+                />
           </section>
       </section>
     </main>
