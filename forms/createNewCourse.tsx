@@ -9,8 +9,6 @@ import { randomId } from '@mantine/hooks';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/dropzone';
 import { MdDeleteOutline } from "react-icons/md";
 
-//required things
-//course content , place to drag and drop to upload video , each video should have a title , enter teachers participating to it
 const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
     const form = useForm({
