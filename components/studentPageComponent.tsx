@@ -6,6 +6,7 @@ import vid from '../videos/vid.mp4'
 import { courses } from '@/components/dummyData';
 import { Open_Sans } from 'next/font/google'
 import { FaPlayCircle } from "react-icons/fa";
+import { connectToDB } from '@/lib/mongoose';
 
 const openSan = Open_Sans({
     weight :"300",
@@ -16,12 +17,20 @@ const StudentPageComponent = () => {
 
     const [requiredCourse , setRequiredCourse] = useState<any>()
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
+    const [selectedLesson , setSelectedLesson] = useState<String | null>(null)
 
-    const handleSelectedCourse = (name : string)=>{
+    const handleSelectedCourse = (name : string , decider : string)=>{
+        if(decider === 'C'){
         setSelectedCourse(name)
         const req = courses.find((item) => item.courseName === name)
         setRequiredCourse(req)
+        connectToDB()
+        }else if(decider === 'L'){
+        setSelectedLesson(name)
+        }
+        
     }
+
 
   return (
     <main className={`flex flex-col border m-5 ${openSan.className}`}>
@@ -36,7 +45,7 @@ const StudentPageComponent = () => {
                             {courses.map((item : any , index : number) =>(
                                 <div 
                                 className={`hover:cursor-pointer ${selectedCourse === item.courseName ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
-                                onClick={() => handleSelectedCourse(item.courseName)}
+                                onClick={() => handleSelectedCourse(item.courseName , 'C')}
                                 >
                                     {item.courseName} 
                                 </div> 
@@ -58,7 +67,12 @@ const StudentPageComponent = () => {
                       {requiredCourse?.courseVideos.map((item : any , index : number) => (
                         <div className='flex items-center gap-2'>
                             <FaPlayCircle />
-                            <div> {item.title}</div>
+                            <div 
+                            className={`hover:cursor-pointer ${selectedLesson === item.title ? 'ease-in-out duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}`}
+                            onClick={() => handleSelectedCourse(item.title , 'L')}
+                            >
+                             {item.title}
+                            </div>
                         </div>
                       ))}
                     
