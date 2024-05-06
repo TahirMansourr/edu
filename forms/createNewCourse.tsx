@@ -23,16 +23,44 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
       const [submittedValues, setSubmittedValues] = useState<typeof form.values | null>(null);
       const [files, setFiles] = useState<File[]>([]);
-    //   const previews = files.map((file, index) => {
-    //     const imageUrl = URL.createObjectURL(file);
-    //     return <Image key={index} src={imageUrl} onLoad={() => URL.revokeObjectURL(imageUrl)} />;
-    //   });
 
-      const videoChange = ( 
+      const previews = files.map((file, index) => {
+        const imageUrl = URL.createObjectURL(file);
+        return <Image 
+        key={index} 
+        src={imageUrl} 
+        onLoad={() => URL.revokeObjectURL(imageUrl)} 
+        w={300}
+        h={300}
+        p={4}
+        mt={9}
+        radius={20}
+        
+        className=' rounded-lg mx-auto mt-3 pt-4'
+
+        />;
+      });
+
+     
+    const pictureChange = (event : File | null)=>{
+        const fileReader = new FileReader()
+        if(event ){
+            const file = event
+            setFiles([event])
+            fileReader.onload = (event) => {
+                const picDataUrl = event.target?.result?.toString() || ''
+                form.setFieldValue(`CoursePicture` , picDataUrl)
+                console.log(picDataUrl)
+            }
+            console.log(event);
+            fileReader.readAsDataURL(file)
+        }
+    }
+
+    const videoChange = ( 
         event : File | null ,
         index : number
-       ) => {
-            
+       ) => {     
             const fileReader = new FileReader()
             if(event ){
                 const file = event
@@ -42,14 +70,12 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
                     console.log(videoDataUrl)
                 }
                 console.log(event);
-                
                 fileReader.readAsDataURL(file)
-
             }
       }
 
       const videoFields = form.getValues().videos.map((item , index) =>(
-        <div key={index} className=' flex gap-5 items-center justify-center align-middle '>
+        <div key={index} className=' flex gap-5 items-center  '>
             <div className=' flex gap-3'>
             <TextInput
                 label = 'Video Title'
@@ -62,10 +88,13 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
             <FileInput 
                 label = 'add video'
                 w={100}
+                
                 placeholder = 'click to add video'
                 {...form.getInputProps(`videos.${index}.video`)}
                 onChange={(e) => videoChange(e , index)}
                 />
+               
+                
             </div>
         
            <div className=' mt-6 pt-6'>
@@ -79,12 +108,24 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
   return (
     <form onSubmit={form.onSubmit(setSubmittedValues)}>
+        <div className=' mx-auto w-[90%]'>
+
+        
     <TextInput
       {...form.getInputProps('name')}
       key={form.key('name')}
       label="Course Name"
       placeholder="Course Name"
     />
+     <FileInput 
+        label = 'Add Course Image'
+        placeholder = 'Click here to add Course Picture'
+        {...form.getInputProps(`CoursePicture`)}
+        onChange={(e) => pictureChange(e)}
+        />
+    <div className=' mt-3 pt-3'>
+    {previews}
+    </div>
     <Textarea
       {...form.getInputProps('content')}
       key={form.key('content')}
@@ -112,11 +153,12 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       Submit
     </Button>
 
-    <Text mt="md">Form values:</Text>
+    {/* <Text mt="md">Form values:</Text>
     <Code block>{JSON.stringify(form.values, null, 2)}</Code>
 
     <Text mt="md">Submitted values:</Text>
-    <Code block>{submittedValues ? JSON.stringify(submittedValues, null, 2) : '–'}</Code>
+    <Code block>{submittedValues ? JSON.stringify(submittedValues, null, 2) : '–'}</Code> */}
+  </div>
   </form>
   )
 }
