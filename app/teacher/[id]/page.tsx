@@ -3,6 +3,7 @@ import React from 'react'
 import { Open_Sans } from 'next/font/google'
 import { Button } from '@mantine/core'
 import CreateNewCourse from '@/forms/createNewCourse'
+import { UploadButton } from "../../../lib/uploadthing";
 
 const openSan = Open_Sans({
     weight :"300",

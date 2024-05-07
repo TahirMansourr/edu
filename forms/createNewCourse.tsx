@@ -9,6 +9,7 @@ import { randomId } from '@mantine/hooks';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/dropzone';
 import { MdDeleteOutline } from "react-icons/md";
 import { CreateCourse } from '@/lib/actions/courseActions';
+import { UploadButton } from '@/lib/uploadthing';
 
 interface CourseTypes{
   name : string,
@@ -99,7 +100,19 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
                 {...form.getInputProps(`videos.${index}.video`)}
                 onChange={(e) => videoChange(e , index)}
                 />
-               
+                 <UploadButton
+                    endpoint="videoUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res);
+                      form.setFieldValue(`videos.${index}.video` , res[0].url)
+                      alert("Upload Completed");
+                    }}
+                    onUploadError={(error: Error) => {
+                      // Do something with the error.
+                      alert(`ERROR! ${error.message}`);
+                    }}
+      />
                 
             </div>
         
@@ -131,6 +144,19 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
         {...form.getInputProps(`CoursePicture`)}
         onChange={(e) => pictureChange(e)}
         />
+         <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          form.setFieldValue('CoursePicture' , res[0].url)
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
     <div className=' mt-3 pt-3'>
     {previews}
     </div>
