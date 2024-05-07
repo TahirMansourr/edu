@@ -7,7 +7,8 @@ const courseSchema = new mongoose.Schema({
             title : String,
             video : String
         }
-    ]
+    ],
+    author : mongoose.Schema.Types.ObjectId
 })
 
 const Course = mongoose.models.Course || mongoose.model("Course" , courseSchema)

@@ -8,6 +8,13 @@ import { randomId } from '@mantine/hooks';
  import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/dropzone';
 import { MdDeleteOutline } from "react-icons/md";
+import { CreateCourse } from '@/lib/actions/courseActions';
+
+interface CourseTypes{
+  name : string,
+  content : string,
+  videos : { title : string , video : string}[]
+}
 
 const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
@@ -21,6 +28,7 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
       const [submittedValues, setSubmittedValues] = useState<typeof form.values | null>(null);
       const [files, setFiles] = useState<File[]>([]);
+      const [loading , setLoading] = useState<boolean>(false)
 
       const previews = files.map((file, index) => {
         const imageUrl = URL.createObjectURL(file);
@@ -40,37 +48,37 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       });
 
      
-    const pictureChange = (event : File | null)=>{
-        const fileReader = new FileReader()
-        if(event ){
-            const file = event
-            setFiles([event])
-            fileReader.onload = (event) => {
-                const picDataUrl = event.target?.result?.toString() || ''
-                form.setFieldValue(`CoursePicture` , picDataUrl)
-                console.log(picDataUrl)
-            }
-            console.log(event);
-            fileReader.readAsDataURL(file)
-        }
-    }
-
-    const videoChange = ( 
-        event : File | null ,
-        index : number
-       ) => {     
-            const fileReader = new FileReader()
-            if(event ){
-                const file = event
-                fileReader.onload = (event) => {
-                    const videoDataUrl = event.target?.result?.toString() || ''
-                    form.setFieldValue(`videos.${index}.video` , videoDataUrl)
-                    console.log(videoDataUrl)
-                }
-                console.log(event);
-                fileReader.readAsDataURL(file)
-            }
+      const pictureChange = (event : File | null)=>{
+          const fileReader = new FileReader()
+          if(event ){
+              const file = event
+              setFiles([event])
+              fileReader.onload = (event) => {
+                  const picDataUrl = event.target?.result?.toString() || ''
+                  form.setFieldValue(`CoursePicture` , picDataUrl)
+                  console.log(picDataUrl)
+              }
+              console.log(event);
+              fileReader.readAsDataURL(file)
+          }
       }
+
+      const videoChange = ( 
+          event : File | null ,
+          index : number
+        ) => {     
+              const fileReader = new FileReader()
+              if(event ){
+                  const file = event
+                  fileReader.onload = (event) => {
+                      const videoDataUrl = event.target?.result?.toString() || ''
+                      form.setFieldValue(`videos.${index}.video` , videoDataUrl)
+                      console.log(videoDataUrl)
+                  }
+                  console.log(event);
+                  fileReader.readAsDataURL(file)
+              }
+        }
 
       const videoFields = form.getValues().videos.map((item , index) =>(
         <div key={index} className=' flex gap-5 items-center  '>
@@ -104,11 +112,13 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       </div>
       ))
 
+      async function handleSubmit(values : CourseTypes){
+        setLoading(true)
+        await CreateCourse(values)
+      }
   return (
-    <form onSubmit={form.onSubmit(setSubmittedValues)}>
+    <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <div className=' mx-auto w-[90%]'>
-
-        
     <TextInput
       {...form.getInputProps('name')}
       key={form.key('name')}

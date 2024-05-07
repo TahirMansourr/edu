@@ -21,7 +21,11 @@ const Demo = ({userId} : {userId : string}) => {
     console.log(values.username);
     
     setLoading(true)
-    await CreateUser(values.username , userId).then((res : {status : string}) => {
+    await CreateUser(
+        values.username ,
+        userId,
+        false
+        ).then((res : {status : string}) => {
         if(res.status === "OK"){
             router.push('/user/me')
         }
