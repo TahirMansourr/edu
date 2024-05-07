@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema({
     name : String,
+    coursePicture : String,
     videos : [
         {
             title : String,

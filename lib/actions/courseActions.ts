@@ -8,7 +8,8 @@ import User from '../models/user'
 interface CourseTypes{
     name : string,
     content : string,
-    videos : { title : string , video : string}[]
+    videos : { title : string , video : string}[],
+    coursePicture : string
   }
   
   
@@ -25,7 +26,8 @@ export async function CreateCourse(args : CourseTypes) {
             name : args.name,
             content : args.content,
             videos : args.videos,
-            author : mongoUser._id
+            author : mongoUser._id,
+            coursePicture : args.coursePicture
         })
         console.log('hrer')
 

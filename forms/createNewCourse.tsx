@@ -14,14 +14,15 @@ import { UploadButton } from '@/lib/uploadthing';
 interface CourseTypes{
   name : string,
   content : string,
-  videos : { title : string , video : string}[]
+  videos : { title : string , video : string}[],
+  coursePicture : string
 }
 
 const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
     const form = useForm({
         mode: 'uncontrolled',
-        initialValues: { name: '', content: '' , videos : [{title : '' , video :''}] },
+        initialValues: { name: '', content: '' , videos : [{title : '' , video :''}] , coursePicture : '' },
         validate: {
           name: hasLength({ min: 3 }, 'Must be at least 3 characters'),
         },
@@ -83,7 +84,7 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
 
       const videoFields = form.getValues().videos.map((item , index) =>(
         <div key={index} className=' flex gap-5 items-center  '>
-            <div className=' flex gap-3'>
+            <div className=' flex flex-col gap-3'>
             <TextInput
                 label = 'Video Title'
                 placeholder="Video Title"
@@ -92,21 +93,23 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
                 key={form.key(`videos.${index}.title`)}
                 {...form.getInputProps(`videos.${index}.title`)}
                 />
-            <FileInput 
+            {/* <FileInput 
                 label = 'add video'
                 w={100}
                 
                 placeholder = 'click to add video'
                 {...form.getInputProps(`videos.${index}.video`)}
                 onChange={(e) => videoChange(e , index)}
-                />
+                /> */}
                  <UploadButton
+                    className='text-blue-400 bg-blue-500'
                     endpoint="videoUploader"
                     onClientUploadComplete={(res) => {
                       // Do something with the response
                       console.log("Files: ", res);
                       form.setFieldValue(`videos.${index}.video` , res[0].url)
                       alert("Upload Completed");
+                      
                     }}
                     onUploadError={(error: Error) => {
                       // Do something with the error.
@@ -137,14 +140,18 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       key={form.key('name')}
       label="Course Name"
       placeholder="Course Name"
+      pb={10}
     />
-     <FileInput 
+     {/* <FileInput 
         label = 'Add Course Image'
+        key={form.key('coursePicture')}
         placeholder = 'Click here to add Course Picture'
-        {...form.getInputProps(`CoursePicture`)}
+        {...form.getInputProps(`coursePicture`)}
         onChange={(e) => pictureChange(e)}
-        />
-         <UploadButton
+        /> */}
+        <div className=' flex gap-5 '>
+          <div className=' text-sm'>Choose Course Picture</div>
+        <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response
@@ -157,6 +164,8 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
           alert(`ERROR! ${error.message}`);
         }}
       />
+        </div>
+        
     <div className=' mt-3 pt-3'>
     {previews}
     </div>
