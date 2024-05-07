@@ -16,7 +16,7 @@
     "@mantine/hooks": "^7.9.0",
     "@tabler/icons-react": "^3.3.0",
     "mongodb": "^6.6.0",
-    "mongoose": "^8.3.3",
+    "mongoose": "^8.3.4",
     "next": "14.2.3",
     "next-video": "^1.0.6",
     "react": "^18",

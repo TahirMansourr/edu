@@ -1,4 +1,4 @@
-import { UserButton } from '@clerk/nextjs'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import { Button } from '@mantine/core'
 import Link from 'next/link'
 import React from 'react'
@@ -12,7 +12,14 @@ const NavBarComponent = () => {
          <Link href={''} className='line-through'>Apply for teaching</Link>
          <div className=' flex gap-3 items-center'>
          <ThemeToggler/>
-         <UserButton />
+         
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          
          </div>
          
         </div>
