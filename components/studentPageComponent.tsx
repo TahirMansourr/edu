@@ -9,6 +9,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { connectToDB } from '@/lib/mongoose';
 import { getMyCourses } from '@/lib/actions/courseActions';
 import { mongoUserInterface } from '@/lib/types';
+import QndA from './QndA';
 
 const openSan = Open_Sans({
     weight :"300",
@@ -37,13 +38,13 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
   return (
     <main className={`flex flex-col border m-5 ${openSan.className}`}>
         <section className=' flex gap-5 p-3'>
-            <div className=' flex-none w-[15rem] border-r'>
+            <div className=' flex-none w-[15rem] border-r pr-2'>
                 <div className='flex flex-col gap-3 '>
-                    <div className=' font-bold'>
+                    <div className=' font-bold mx-auto text-xl shadow-sm mb-5'>
                         {mongoUser.name}
                     </div>
                     <div className=''>
-                        
+                        <h1 className=' font-bold  shadow-sm'>My Courses</h1>
                             {mongoUser.courses.map((item : any , index : number) =>(
                                 <div 
                                 key={index}
@@ -68,7 +69,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
 
                 <div className='rounded-lg mx-auto'></div>
                 <VideoPlayer/>
-                <div className=''>rest of course</div>
+                <div className=' mt-5'>Rest of the lessons</div>
                 <div>    
                       {requiredCourse?.videos.map((item : any , index : number) => (
                         <div className='flex items-center gap-2'>
@@ -90,16 +91,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                 </div>
             </div>
             <div className=' flex flex-col flex-initial w-[20rem] gap-3'>
-                <div className=' mx-auto font-bold'>Q&A</div>
-                <div>
-                    <ul>
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>5</li>
-                    </ul>
-                </div>
+               <QndA/>
             </div>
         </section >
     </main>

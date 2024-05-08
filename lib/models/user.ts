@@ -11,8 +11,12 @@ const userSchema = new mongoose.Schema({
     isTeacher : Boolean,
     courses : [{
        type : mongoose.Schema.Types.ObjectId,
-       ref : 'Course'}
-    ]
+       ref : 'Course'
+    }],
+    posts : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Post"
+    }]
 })
 
 const User = mongoose.models.User || mongoose.model("User" , userSchema)
