@@ -39,6 +39,7 @@ export async function CreateCourse(args : CourseTypes) {
     }
 }
 
+//This one will probably be depricated
 export async function getMyCourses () {
     try {
         connectToDB()

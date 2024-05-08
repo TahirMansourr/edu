@@ -8,13 +8,14 @@ import { Open_Sans } from 'next/font/google'
 import { FaPlayCircle } from "react-icons/fa";
 import { connectToDB } from '@/lib/mongoose';
 import { getMyCourses } from '@/lib/actions/courseActions';
+import { mongoUserInterface } from '@/lib/types';
 
 const openSan = Open_Sans({
     weight :"300",
     subsets : ["latin"]
 })
 
-const StudentPageComponent = () => {
+const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) => {
 
     const [requiredCourse , setRequiredCourse] = useState<any>()
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
@@ -23,7 +24,7 @@ const StudentPageComponent = () => {
     const handleSelectedCourse = (name : string , decider : string)=>{
         if(decider === 'C'){
         setSelectedCourse(name)
-        const req = courses.find((item) => item.courseName === name)
+        const req = mongoUser.courses.find((item) => item.name === name)
         setRequiredCourse(req)
         connectToDB()
         }else if(decider === 'L'){
@@ -39,19 +40,20 @@ const StudentPageComponent = () => {
             <div className=' flex-none w-[15rem] border-r'>
                 <div className='flex flex-col gap-3 '>
                     <div className=' font-bold'>
-                        student's name
+                        {mongoUser.name}
                     </div>
                     <div className=''>
                         
-                            {courses.map((item : any , index : number) =>(
+                            {mongoUser.courses.map((item : any , index : number) =>(
                                 <div 
-                                className={`hover:cursor-pointer ${selectedCourse === item.courseName ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
+                                key={index}
+                                className={`hover:cursor-pointer ${selectedCourse === item.name ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
                                 onClick={() => {
-                                    handleSelectedCourse(item.courseName , 'C')
-                                    getMyCourses()
+                                    handleSelectedCourse(item.name , 'C')
+                                    // getMyCourses()
                                 }}
                                 >
-                                    {item.courseName} 
+                                    {item.name} 
                                 </div> 
                                )
                             )}
@@ -68,10 +70,14 @@ const StudentPageComponent = () => {
                 <VideoPlayer/>
                 <div className=''>rest of course</div>
                 <div>    
-                      {requiredCourse?.courseVideos.map((item : any , index : number) => (
+                      {requiredCourse?.videos.map((item : any , index : number) => (
                         <div className='flex items-center gap-2'>
-                            <FaPlayCircle />
+                            <FaPlayCircle 
+                            color={selectedLesson === item.title ? 'rgb(0,225,225)' : 'black'}
+                            size={selectedLesson === item.title ? 25 : 15}
+                            />
                             <div 
+                            key={index}
                             className={`hover:cursor-pointer ${selectedLesson === item.title ? 'ease-in-out duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}`}
                             onClick={() => handleSelectedCourse(item.title , 'L')}
                             >

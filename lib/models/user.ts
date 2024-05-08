@@ -3,7 +3,10 @@ import mongoose, { Schema } from "mongoose";
 const userSchema = new mongoose.Schema({
     id : String,
     name : String,
-    joinedAt : Date,
+    joinedAt : {
+        type : Date,
+        default : Date.now()
+    },
     mongoUser : Boolean,
     isTeacher : Boolean,
     courses : [{

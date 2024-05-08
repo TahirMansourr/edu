@@ -28,7 +28,7 @@ export async function getMongoUser(userId : string){
         .populate({
             path : 'courses',
             model : Course
-        })
+        }).lean(    )
         return mongoUser
     } catch (error) {
         throw new Error(`Error at userActions.tsx at getMongoUser : ${error}`)
