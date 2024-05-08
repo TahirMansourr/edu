@@ -7,22 +7,20 @@ import ReactPlayer from "react-player";
 
 const VideoPlayer = () => {
   //video path
-  let videosrc = "../public/vid.mp4";
-
   return (
-    <div>
-      <h1>my custome player</h1>
+    <div className=' mx-auto rounded-lg shadow-xl'>
       <ReactPlayer
         width="500px"
         height="400px"
-        url={videosrc}
+        style={{borderRadius : '3rem' , border : '10', marginTop : '0px' , paddingTop : '0px', height : "100%"}}
+        url={'https://utfs.io/f/050996d2-cc4d-4077-a3fc-e55b80b848bd-184yrj.mp4'}
         controls={true}
         // light is usefull incase of dark mode
         light={false}
         // picture in picture
         pip={true}
+        playsinline ={true}
       />
-      <source src={videosrc} type="video/mp4" />
     </div>
   );
 }

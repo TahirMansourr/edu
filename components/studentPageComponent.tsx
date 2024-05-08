@@ -7,6 +7,7 @@ import { courses } from '@/components/dummyData';
 import { Open_Sans } from 'next/font/google'
 import { FaPlayCircle } from "react-icons/fa";
 import { connectToDB } from '@/lib/mongoose';
+import { getMyCourses } from '@/lib/actions/courseActions';
 
 const openSan = Open_Sans({
     weight :"300",
@@ -45,7 +46,10 @@ const StudentPageComponent = () => {
                             {courses.map((item : any , index : number) =>(
                                 <div 
                                 className={`hover:cursor-pointer ${selectedCourse === item.courseName ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
-                                onClick={() => handleSelectedCourse(item.courseName , 'C')}
+                                onClick={() => {
+                                    handleSelectedCourse(item.courseName , 'C')
+                                    getMyCourses()
+                                }}
                                 >
                                     {item.courseName} 
                                 </div> 
@@ -61,9 +65,9 @@ const StudentPageComponent = () => {
             <div className='ease-in-out mx-auto font-bold text-lg p-2 shadow-lg transition-all duration-500 rounded-md'>{selectedCourse}</div>
 
                 <div className='rounded-lg mx-auto'></div>
+                <VideoPlayer/>
                 <div className=''>rest of course</div>
-                <div>
-                    
+                <div>    
                       {requiredCourse?.courseVideos.map((item : any , index : number) => (
                         <div className='flex items-center gap-2'>
                             <FaPlayCircle />

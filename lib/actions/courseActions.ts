@@ -38,3 +38,22 @@ export async function CreateCourse(args : CourseTypes) {
         
     }
 }
+
+export async function getMyCourses () {
+    try {
+        connectToDB()
+        const user = await currentUser()
+        if(!user) throw new Error('user does not exitst')
+        const mongoUser = await User.findOne({id : user.id})
+        .populate({
+            path : "courses",
+            model : Course
+        })
+        if(!mongoUser) throw new Error('mongoUser not found')
+        console.log('user from the inside' , mongoUser)
+    
+        
+    } catch (error) {
+        
+    }
+}

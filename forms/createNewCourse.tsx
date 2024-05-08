@@ -18,7 +18,7 @@ interface CourseTypes{
   coursePicture : string
 }
 
-const CreateNewCourse = (props: Partial<DropzoneProps>) => {
+const CreateNewCourse = () => {
 
     const form = useForm({
         mode: 'uncontrolled',
@@ -32,22 +32,33 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
       const [files, setFiles] = useState<File[]>([]);
       const [loading , setLoading] = useState<boolean>(false)
 
-      const previews = files.map((file, index) => {
-        const imageUrl = URL.createObjectURL(file);
-        return <Image 
-        key={index} 
-        src={imageUrl} 
-        onLoad={() => URL.revokeObjectURL(imageUrl)} 
+      const previews = 
+      <Image   
+       src={form.getValues().coursePicture}   
         w={300}
         h={300}
         p={4}
         mt={9}
         radius={20}
-        
         className=' rounded-lg mx-auto mt-3 pt-4'
-
         />;
-      });
+
+      // const previews = files.map((file, index) => {
+      //   const imageUrl = URL.createObjectURL(file);
+      //   return <Image 
+      //   key={index} 
+      //   src={imageUrl} 
+      //   onLoad={() => URL.revokeObjectURL(imageUrl)} 
+      //   w={300}
+      //   h={300}
+      //   p={4}
+      //   mt={9}
+      //   radius={20}
+        
+      //   className=' rounded-lg mx-auto mt-3 pt-4'
+
+      //   />;
+      // });
 
      
       const pictureChange = (event : File | null)=>{
@@ -153,10 +164,11 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
           <div className=' text-sm'>Choose Course Picture</div>
         <UploadButton
         endpoint="imageUploader"
+        {...form.getInputProps('coursePicture')}
         onClientUploadComplete={(res) => {
           // Do something with the response
           console.log("Files: ", res);
-          form.setFieldValue('CoursePicture' , res[0].url)
+          form.setFieldValue('coursePicture' , res[0].url)
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
@@ -167,7 +179,7 @@ const CreateNewCourse = (props: Partial<DropzoneProps>) => {
         </div>
         
     <div className=' mt-3 pt-3'>
-    {previews}
+    {form.getValues().coursePicture != ''? previews : null}
     </div>
     <Textarea
       {...form.getInputProps('content')}
