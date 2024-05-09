@@ -41,9 +41,9 @@ export async function getMyPosts({courseId , lessonFromCourse} : Pick<Props , 'c
         .populate({
             path : 'posts',
             model : Post
-        }).findOne({lessonFromCourse : lessonFromCourse})
+        })
 
-        const requiredQandA = courseOfRequiredQandAPopulated
+        const requiredQandA = courseOfRequiredQandAPopulated.posts.filter((item : any) => item.lessonFromCourse === lessonFromCourse)
 
         console.log(requiredQandA);
         
