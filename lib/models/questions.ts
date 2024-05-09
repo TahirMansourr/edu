@@ -14,7 +14,10 @@ const postSchema = new mongoose.Schema({
     children : [{
         type : mongoose.Schema.Types.ObjectId,
         ref: "Post"
-    }]
+    }],
+    lessonFromCourse : String,
+    courseId : String
 })
 
 const Post = mongoose.models.Post || mongoose.model('Post' , postSchema)
+export default Post;

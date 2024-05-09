@@ -1,0 +1,38 @@
+Test Driven Develeopment
+* TDD is a methodology in software development (iterative development cycle) that is writing test cases before the 
+actual feature is written. TDD utilizes the repetition of short development cycles, it combines building and testing.
+TDD usually follows RED-GREEN-REFACTOR cycle.
+
+There are 2 main approaches for TDD: Inside-Out and Outside-In
+-Inside-Out approach focuses on the result, testing begins with the smallest unit level and the architecture emerges
+organically , attempts to minimize mocking and prevent over-engineering, the design happens at refactor stage, which can
+unfortunatley result in large refactoring.
+-Outside-in approach focuses on user-behavior. Testing begins at the outer-most level and the details emerge as you work
+your way in , this approach relies on mocking and stubbing external dependencies. It's harder to learn but ensures
+that your code meets buisness needs. designs happen at the red stage.
+It is often easier to use outside in approach when working with complex applications that have a large number of rapidly
+changing external dependencies. Smaller monolothic applications are better suited for inside out approach. The outside-in
+approach tends to work better in testing front-end applications.
+Importance of seeing tests fail:
+It validates that the new test is meaningful and unique, helps to ensure that the implemented code is not only usefull
+but neccessary as well , and it provides and end goal, something to aim for. This focuses your thinking so that you
+write just enough code to meet the goal.
+
+TDD  follows three steps:
+1-Write a test for the next functionality you want to add.
+2-Write functional code untill the code passes.
+3-Refactor new and old code to make it well structured.
+*There is also a vital step in which we write a list of test cases first , pick one of these tests and apply red green refactor 
+to it.
+
+GIVEN-WHEN-THEN is a style for representing tests specifying a systems behaviour using specification by example.
+-The given part specifies the state of the world before  you begin the specification you are applying in the scenario,
+(preconditions to the test)
+-when is the behavior you are specifying.
+-Then section describes the changes you expect due to applied behavior.
+
+Testing in react and nextjs:
+ unit testing which involved testing individual blocks of code in isolation.it can be a single function ,hook or componenet.
+ Component testing : It is a more focused version of unit testing , where the primary subject of the test is react components, ie : testing how components are rendered , thier interaction with props and thier behavior in response to  user events. Integration testing: which is testing  how multiple units work together. This can be a combination of components , hooks and fucntions.
+ End to end testing involves testing user flows in an environment that simulates real world user scenarios , like browser. This means testing specific tasks in a  production environment.\
+ Snapshot testing which envolves capturing the rendered output of a component and saving it to a snapshot file.

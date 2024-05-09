@@ -10,6 +10,10 @@ const courseSchema = new mongoose.Schema({
             video : String
         }
     ],
+    posts :[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Post"
+    }],
     author : mongoose.Schema.Types.ObjectId
 })
 

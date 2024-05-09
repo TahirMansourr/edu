@@ -21,17 +21,18 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
     const [requiredCourse , setRequiredCourse] = useState<any>()
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
     const [selectedLesson , setSelectedLesson] = useState<String | null>(null)
+    const [selectedCourseIdforQndA , setSelectedCourseIdforQndA] = useState<string>()
 
     const handleSelectedCourse = (name : string , decider : string)=>{
+
         if(decider === 'C'){
         setSelectedCourse(name)
         const req = mongoUser.courses.find((item) => item.name === name)
         setRequiredCourse(req)
-        connectToDB()
+        setSelectedLesson(null)
         }else if(decider === 'L'){
         setSelectedLesson(name)
-        }
-        
+        }        
     }
 
 
@@ -51,6 +52,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                                 className={`hover:cursor-pointer ${selectedCourse === item.name ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
                                 onClick={() => {
                                     handleSelectedCourse(item.name , 'C')
+                                    setSelectedCourseIdforQndA(item._id)
                                     // getMyCourses()
                                 }}
                                 >
@@ -86,12 +88,14 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                             </div>
                         </div>
                       ))}
-                    
-                    
                 </div>
             </div>
-            <div className=' flex flex-col flex-initial w-[20rem] gap-3'>
-               <QndA/>
+            <div className=' flex flex-initial w-[30rem] '>
+               <QndA 
+               id = {mongoUser._id}
+               courseId = {selectedCourseIdforQndA as string}
+               lessonFromCourse = {selectedLesson as string}
+               />
             </div>
         </section >
     </main>

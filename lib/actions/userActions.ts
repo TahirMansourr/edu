@@ -7,7 +7,6 @@ import Course from "../models/course";
 export async function CreateUser(username : string , userId : string , isTeacher : boolean) {
     try {
         connectToDB()
-
         await User.findOneAndUpdate({ id : userId} ,
             {
                 name : username,
