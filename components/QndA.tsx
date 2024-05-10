@@ -49,11 +49,12 @@ const QndA =  (
               id = {item._id}
               body={item.body}
               createdAt={item.createdAt}
-              author={item.author._id}
+              author={id}
               isParent = {item.isParent}
               children={item.children}
               lessonFromCourse={item.lessonFromCourse}
               courseId={item.courseId}
+              authorname = {item.author.name}
              />
           ))
         }

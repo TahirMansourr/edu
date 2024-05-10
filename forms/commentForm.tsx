@@ -48,7 +48,7 @@ const CommentForm = ( { postId , lessonFromCourse , courseId , id} : Props ) => 
           key={form.key('comment')}
           className=' w-full'
           {...form.getInputProps('comment')}
-          rightSection = {<LuSend size={20} onClick={() => onSubmit()} className=' hover:cursor-pointer' />}
+          rightSection = {<LuSend size={20} color='blue' onClick={() => onSubmit()} className=' hover:cursor-pointer' />}
         />       
         </div>
       </form>

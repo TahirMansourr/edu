@@ -42,7 +42,15 @@ export async function getMyPosts({courseId , lessonFromCourse} : Pick<Props , 'c
         const courseOfRequiredQandAPopulated = await Course.findOne({_id : courseId})
         .populate({
             path : 'posts',
-            model : Post
+            model : Post,
+            populate : {
+                path : 'children',
+                model : Post,
+                populate : {
+                    path : 'author',
+                    model : User
+                }
+            }
         }).populate({
             path : 'author',
             model : User

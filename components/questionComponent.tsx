@@ -15,29 +15,45 @@ const QuestionComponent = ({
     children,
     lessonFromCourse,
     courseId,
-    id
-} : PostInterface) => {
+    id, 
+    authorname
+} : PostInterface & {authorname : string}) => {
 
     const [comment , setComment] = useState<boolean>(false)
-
+    console.log('here is the children' , children);
+    
   return (
     <section className=' bg-orange-100 rounded-md w-full mb-2 p-2'>
         {body}
         <div className=' flex flex-col px-3 gap-3 w-full'>
             <div className=' flex items-center w-full '>   
-            <GoCommentDiscussion onClick={()=>setComment(!comment)} className=' hover:cursor-pointer mr-2'/>
+            <GoCommentDiscussion
+             onClick={()=>setComment(!comment)}
+             className=' hover:cursor-pointer mr-2'/>
             <MdOutlineDone color='green'  />
             <p className='text-green-500'>Answered</p>
             </div>  
             {
                 body ? <div> 
                             { comment ? 
+                            <div>
+                                {
+                                    children.map((item : any , index : number) =>(
+                                        <div key={index}>
+                                            <p>{item.author.name}</p>
+                                            <p> {item.body} </p>
+                                            {/* <p> {item.createdAt.toString()} </p> */}
+                                        </div>
+                                    ))
+                                }
                                 <CommentForm 
                                     id = {author}
                                     lessonFromCourse={lessonFromCourse}
                                     courseId={courseId}
                                     postId={id}
                                 />
+                            </div>
+                                
                             :null
                             }
                         </div> 
