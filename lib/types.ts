@@ -16,3 +16,14 @@ export interface mongoUserInterface{
     mongoUser : boolean,
     name : string
 }
+
+export interface PostInterface{
+    id : string,
+    body : string,
+    createdAt : Date,
+    author : string,
+    isParent : boolean,
+    children : PostInterface[],
+    lessonFromCourse : string,
+    courseId : string
+}

@@ -90,7 +90,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                       ))}
                 </div>
             </div>
-            <div className=' flex flex-initial w-[30rem] '>
+            <div className=' flex flex-initial w-[30rem]'>
                <QndA 
                id = {mongoUser._id}
                courseId = {selectedCourseIdforQndA as string}

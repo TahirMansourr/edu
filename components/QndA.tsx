@@ -3,6 +3,10 @@ import QuestionForm from '@/forms/questionForm'
 import { getMyCourses } from '@/lib/actions/courseActions'
 import { getMyPosts } from '@/lib/actions/postActions'
 import React, { useEffect, useState } from 'react'
+import qanda2 from '../public/qanda2.jpeg'
+import Image from 'next/image'
+import QuestionComponent from './questionComponent'
+
 
 interface Props {
   id : string ,
@@ -20,6 +24,7 @@ const QndA =  (
     async function getContentforQandA(){
       if(lessonFromCourse){
       const content = await getMyPosts({courseId , lessonFromCourse})
+      setContent(content.data)
       }else return;
     }
     getContentforQandA()
@@ -29,9 +34,32 @@ const QndA =  (
   return (
     <div className='flex flex-col w-full relative'>
       <h1 className=' mx-auto font-bold text-lg shadow-sm'> Q & A</h1>
-      <section>
-        <div> hey teacher i have some questions i would like to ask you</div>
+      <section >
+        {/* <Image 
+         src={qanda2}
+         alt='q and a section'
+         className='w-full h-fit absolute -top-7  '
+         /> */}
       </section>
+     { content?
+      <section>
+        {
+          content.map((item : any , index : number) =>(
+            <QuestionComponent 
+              id = {item._id}
+              body={item.body}
+              createdAt={item.createdAt}
+              author={item.author._id}
+              isParent = {item.isParent}
+              children={item.children}
+              lessonFromCourse={item.lessonFromCourse}
+              courseId={item.courseId}
+             />
+          ))
+        }
+      </section>
+      
+    : <h1>Choose a lesson</h1> }
       { lessonFromCourse?
       <footer className=' absolute bottom-0 w-full'>
         <QuestionForm 
