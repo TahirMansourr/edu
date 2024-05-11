@@ -5,7 +5,7 @@ import { Open_Sans } from 'next/font/google'
 import { Button } from '@mantine/core'
 import CreateNewCourse from '@/forms/createNewCourse'
 import { UploadButton } from "../lib/uploadthing";
-import { mongoUserInterface } from '@/lib/types'
+import { CourseInterface, mongoUserInterface } from '@/lib/types'
 
 
 const openSan = Open_Sans({
@@ -15,7 +15,7 @@ const openSan = Open_Sans({
 
 const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
 
-    const [requiredCourse , setRequiredCourse] = useState<any>()
+    const [requiredCourse , setRequiredCourse] = useState<CourseInterface>()
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
     const [selectedLesson , setSelectedLesson] = useState<String | null>(null)
     const [selectedCourseIdforQndA , setSelectedCourseIdforQndA] = useState<string>()
@@ -42,8 +42,7 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                     {mongoUser.name}
                 </div>
                 <div>
-                <h1 className=' font-bold  shadow-sm'>My Courses</h1>
-                
+                <h1 className=' font-bold  shadow-sm mb-3'>My Courses</h1>
                 {mongoUser.courses.map((item : any , index : number) =>(
                                 <div 
                                 key={index}
@@ -59,12 +58,18 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                                )
                             )}
                     <div className=' mt-5 w-full flex justify-center'>
-                    <Button className=' mx-auto' >Add new Course</Button>
-                    </div>
-                
-                
-                </div>
-               
+                    <Button 
+                    className=' mx-auto'
+                    onClick={ ()=> setRequiredCourse({
+                        name: '',
+                        content: '' , 
+                        videos : [{title : '' , video :''}] ,
+                        coursePicture :  '',
+                        _id :  ''
+                    } as CourseInterface) }
+                    >Add new Course</Button>
+                    </div>       
+                </div>              
             </div>
         </div>
         <div className=' flex flex-initial flex-col gap-3 w-[45rem] border-r'>

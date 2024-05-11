@@ -5,6 +5,7 @@ import Course from '../models/course'
 import { currentUser } from '@clerk/nextjs/server'
 import User from '../models/user'
 import { CourseInterface } from '../types'
+import { courses } from '@/components/dummyData'
 
 interface CourseTypes{
     name : string,
@@ -17,22 +18,36 @@ interface CourseTypes{
 
 export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'> , author : string) {
     try {
-        connectToDB()
-
-       const newCourse = await Course.findOneAndUpdate({_id : args._id},{
-            name : args.name,
-            content : args.content,
-            videos : args.videos,
-            author ,
-            coursePicture : args.coursePicture
-        } , {upsert : true})
-        console.log('hrer')
-
-        await newCourse.save()
-        console.log(newCourse)
+         connectToDB()
         
-    } catch (error) {
         
+        if(args._id != '' ){
+            const newCourse = await Course.findOneAndUpdate({_id : args._id},{
+                name : args.name,
+                content : args.content,
+                videos : args.videos,
+                author ,
+                coursePicture : args.coursePicture
+            } , {upsert : true , new: true })
+            await newCourse.save()
+        }else{
+            const newCourse = await Course.create({
+                name : args.name,
+                content : args.content,
+                videos : args.videos,
+                author ,
+                coursePicture : args.coursePicture
+            })
+
+           await newCourse.save()
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: author  },
+                { $push : {courses : newCourse} }
+             ,{upsert : true} );
+              await updatedUser.save();
+            }
+    } catch (error : any) {
+        throw new Error( `error ${error}`)
     }
 }
 
