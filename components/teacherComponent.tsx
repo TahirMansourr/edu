@@ -76,10 +76,13 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
         </div>
         <div className=' flex flex-col flex-initial w-[20rem] gap-3'>
             <div className=' mx-auto font-bold'>Q&A</div>
-            <QndAforTeacher
-                id=''
-                courseId=''
-             />
+            { requiredCourse &&
+                 <QndAforTeacher
+                 id={mongoUser._id}
+                 courseId={requiredCourse._id}
+              />
+            }
+           
         </div>
     </section >
     </main>
