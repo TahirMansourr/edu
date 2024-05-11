@@ -36,13 +36,13 @@ const CommentForm = ( { postId , lessonFromCourse , courseId , id} : Props ) => 
         body : comment,
         id 
     })
-   
+    form.reset()
   }
 
   return (
-    <div className=' w-full' >
+    <div className=' w-full mt-3' >
       <form >
-        <div className='flex items-center gap-2 w-full'>
+        <div className='flex items-center gap-2 w-full '>
         <TextInput
           placeholder="Feel free to ask"
           key={form.key('comment')}

@@ -5,8 +5,6 @@ import React, { useState } from 'react'
 import { GoCommentDiscussion } from "react-icons/go";
 import { MdOutlineDone } from "react-icons/md";
 
-// i want to put the name of the person who asked the question
-// i want to be able to put a form
 const QuestionComponent = ({
     body,
     createdAt,
@@ -24,7 +22,7 @@ const QuestionComponent = ({
     
   return (
     <section className=' bg-orange-100 rounded-md w-full mb-2 p-2'>
-        {body}
+        - {body}
         <div className=' flex flex-col px-3 gap-3 w-full'>
             <div className=' flex items-center w-full '>   
             <GoCommentDiscussion
@@ -39,9 +37,9 @@ const QuestionComponent = ({
                             <div>
                                 {
                                     children.map((item : any , index : number) =>(
-                                        <div key={index}>
-                                            <p>{item.author.name}</p>
-                                            <p> {item.body} </p>
+                                        <div key={index} className=' flex flex-col w-full bg-orange-50 p-2 relative mb-2'>   
+                                            <p className=' mb-3'> {item.body} </p>
+                                            <footer className=' text-xs absolute bottom-1 right-1 mt-2'>-{item.author.name}</footer>
                                             {/* <p> {item.createdAt.toString()} </p> */}
                                         </div>
                                     ))

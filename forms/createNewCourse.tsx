@@ -10,6 +10,7 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/
 import { MdDeleteOutline } from "react-icons/md";
 import { CreateCourse } from '@/lib/actions/courseActions';
 import { UploadButton } from '@/lib/uploadthing';
+import { CourseInterface, mongoUserInterface } from '@/lib/types';
 
 interface CourseTypes{
   name : string,
@@ -18,11 +19,13 @@ interface CourseTypes{
   coursePicture : string
 }
 
-const CreateNewCourse = () => {
+const CreateNewCourse = ({requiredCourse} : {requiredCourse : CourseInterface}) => {
 
     const form = useForm({
         mode: 'uncontrolled',
-        initialValues: { name: '', content: '' , videos : [{title : '' , video :''}] , coursePicture : '' },
+        initialValues: { 
+          name: requiredCourse.name,
+          content: requiredCourse.content , videos : [{title : '' , video :''}] , coursePicture : '' },
         validate: {
           name: hasLength({ min: 3 }, 'Must be at least 3 characters'),
         },

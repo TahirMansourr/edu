@@ -34,18 +34,13 @@ const QndA =  (
   return (
     <div className='flex flex-col w-full relative'>
       <h1 className=' mx-auto font-bold text-lg shadow-sm'> Q & A</h1>
-      <section >
-        {/* <Image 
-         src={qanda2}
-         alt='q and a section'
-         className='w-full h-fit absolute -top-7  '
-         /> */}
-      </section>
-     { content?
+      
+     { content.length > 0 ?
       <section>
         {
           content.map((item : any , index : number) =>(
             <QuestionComponent 
+              key={index}
               id = {item._id}
               body={item.body}
               createdAt={item.createdAt}
@@ -60,7 +55,14 @@ const QndA =  (
         }
       </section>
       
-    : <h1>Choose a lesson</h1> }
+    : <section >
+    <Image 
+     src={qanda2}
+     alt='q and a section'
+     className='w-full h-fit absolute -top-1  '
+     />
+     <h1 className='text-center absolute bottom-5'> Choose a lesson from the course to view the Q&A section</h1>
+  </section> }
       { lessonFromCourse?
       <footer className=' absolute bottom-0 w-full'>
         <QuestionForm 

@@ -19,6 +19,21 @@ export async function CreateUser(username : string , userId : string , isTeacher
         throw new Error(`error at createUserForm : ${error}`)
     }
 }
+export async function CreateTeacher(username : string , userId : string , isTeacher : boolean) {
+    try {
+        connectToDB()
+        await User.findOneAndUpdate({ id : userId} ,
+            {
+                name : username,
+                mongoUser : true,
+                isTeacher : true
+            }, {upsert : true})
+        
+        return {status : "OK"}
+    } catch (error) {
+        throw new Error(`error at createUserForm : ${error}`)
+    }
+}
 
 export async function getMongoUser(userId : string){
     try {
