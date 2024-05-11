@@ -36,3 +36,8 @@ Testing in react and nextjs:
  Component testing : It is a more focused version of unit testing , where the primary subject of the test is react components, ie : testing how components are rendered , thier interaction with props and thier behavior in response to  user events. Integration testing: which is testing  how multiple units work together. This can be a combination of components , hooks and fucntions.
  End to end testing involves testing user flows in an environment that simulates real world user scenarios , like browser. This means testing specific tasks in a  production environment.\
  Snapshot testing which envolves capturing the rendered output of a component and saving it to a snapshot file.
+
+
+ NEXT STEP:
+ ADD QNDA TO THE TEACHERS COMPONENT.
+ MAKE THE ANSWER IN THE QNDA SECTION BACKGROUND GREEN.

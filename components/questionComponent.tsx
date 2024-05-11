@@ -40,7 +40,6 @@ const QuestionComponent = ({
                                         <div key={index} className=' flex flex-col w-full bg-orange-50 p-2 relative mb-2'>   
                                             <p className=' mb-3'> {item.body} </p>
                                             <footer className=' text-xs absolute bottom-1 right-1 mt-2'>-{item.author.name}</footer>
-                                            {/* <p> {item.createdAt.toString()} </p> */}
                                         </div>
                                     ))
                                 }

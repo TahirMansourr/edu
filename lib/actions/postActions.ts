@@ -34,7 +34,12 @@ export async function createQuestion({courseId , id , lessonFromCourse , body} :
     }
 }
 
-export async function getMyPosts({courseId , lessonFromCourse} : Pick<Props , 'courseId' |  'lessonFromCourse'>){
+export async function getMyPosts({
+    courseId ,
+    lessonFromCourse ,
+    isTeacher} 
+    : Pick<Props , 'courseId' |  'lessonFromCourse'> & {isTeacher : boolean
+    }){
     try {
         connectToDB()
         console.log(courseId);
@@ -57,16 +62,23 @@ export async function getMyPosts({courseId , lessonFromCourse} : Pick<Props , 'c
         }).lean()
 
         if(Array.isArray(courseOfRequiredQandAPopulated)) return { status : 'Bad' , message : 'returned an array'}
-
+        if(isTeacher === false){
         const requiredQandA = courseOfRequiredQandAPopulated?.posts.filter((item : any) => (
             item.lessonFromCourse === lessonFromCourse
             ))
-
-        return {
-            status : 'OK',
-            data : requiredQandA
-        }
-        
+            return {
+                status : 'OK',
+                data : requiredQandA
+            }
+            
+         }else{
+            const requiredQandA =courseOfRequiredQandAPopulated?.posts
+            return{
+                status : 'OK',
+                data : requiredQandA
+            }
+         }
+       
 
     } catch (error) {
         throw new Error(`error at postActions.ts in getMyPosts : ${error}`)

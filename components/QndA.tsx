@@ -23,7 +23,7 @@ const QndA =  (
     
     async function getContentforQandA(){
       if(lessonFromCourse){
-      const content = await getMyPosts({courseId , lessonFromCourse})
+      const content = await getMyPosts({courseId , lessonFromCourse , isTeacher:false})
       setContent(content.data)
       }else return;
     }
