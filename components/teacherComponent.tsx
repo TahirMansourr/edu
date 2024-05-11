@@ -26,6 +26,8 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
         setSelectedCourse(name)
         const req = mongoUser.courses.find((item) => item.name === name)
         setRequiredCourse(req)
+        console.log(requiredCourse);
+        
         setSelectedLesson(null)
         }else if(decider === 'L'){
         setSelectedLesson(name)
@@ -67,8 +69,12 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
         </div>
         <div className=' flex flex-initial flex-col gap-3 w-[45rem] border-r'>
             <div className=' mx-auto font-bold'>Course Name</div>
-            <div className=''>
-                <CreateNewCourse requiredCourse = {requiredCourse}/>
+            <div className=''>{
+                requiredCourse ?
+                <CreateNewCourse 
+                 requiredCourse = {requiredCourse}
+                 mongoUserId= {mongoUser._id}
+                 /> : <h1>Choose a course please</h1>}
             </div>
             <div className=''>rest of course</div>
         </div>

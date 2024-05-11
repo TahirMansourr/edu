@@ -4,6 +4,7 @@ import { connectToDB } from '../mongoose'
 import Course from '../models/course'
 import { currentUser } from '@clerk/nextjs/server'
 import User from '../models/user'
+import { CourseInterface } from '../types'
 
 interface CourseTypes{
     name : string,
@@ -14,21 +15,17 @@ interface CourseTypes{
   
   
 
-export async function CreateCourse(args : CourseTypes) {
+export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'> , author : string) {
     try {
         connectToDB()
-        const user = await currentUser()
-        if(!user) throw new Error('user does not exitst')
-        const mongoUser = await User.findOne({id : user.id})
-        if(!mongoUser) throw new Error('mongoUser not found')
 
-       const newCourse = await Course.create({
+       const newCourse = await Course.findOneAndUpdate({_id : args._id},{
             name : args.name,
             content : args.content,
             videos : args.videos,
-            author : mongoUser._id,
+            author ,
             coursePicture : args.coursePicture
-        })
+        } , {upsert : true})
         console.log('hrer')
 
         await newCourse.save()
