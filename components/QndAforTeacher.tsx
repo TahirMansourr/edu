@@ -2,6 +2,7 @@
 import { getMyPosts } from '@/lib/actions/postActions'
 import React, { useEffect, useState } from 'react'
 import QuestionComponent from './questionComponent'
+import { Accordion } from '@mantine/core';
 
 interface Props {
     id : string ,
@@ -15,16 +16,61 @@ const QndAforTeacher = ({ id , courseId} : Props) => {
     useEffect(()=>{
         async function getContentAtStart() {
             const content = await getMyPosts({lessonFromCourse : 'null', courseId , isTeacher : true})
-            setContent(content.data)
+            const groupedContent = content.data.reduce((grouped : any, item : any) => {
+                // Check if there's already an array for this lessonFromCourse
+                if (!grouped[item.lessonFromCourse]) {
+                    // If not, create a new array for it
+                    grouped[item.lessonFromCourse] = [];
+                }
+                // Push the item to the corresponding array
+                grouped[item.lessonFromCourse].push(item);
+                return grouped;
+            }, {});
+            const contentArray = Object.entries(groupedContent).map(([lessonFromCourse, items]) => ({
+                lessonFromCourse,
+                items
+            }));
+            console.log(contentArray)
+            setContent(contentArray)
         }
         getContentAtStart()
-    })
+    } ,[courseId])
 
   return (
     <div>
         {content && content?.length > 0 ? 
-        content.map((item : any , index : number) => (
-            <QuestionComponent
+        <Accordion>
+            { content.map((item : any , index : number) => (
+                    <Accordion.Item key={index} value={item.lessonFromCourse} >
+                        <Accordion.Control >{item.lessonFromCourse}</Accordion.Control>
+                        <Accordion.Panel>
+                            { item.items.map((item : any , index : number) =>(
+                                <QuestionComponent
+                                key={index}
+                                id = {item._id}
+                                body={item.body}
+                                createdAt={item.createdAt}
+                                author={id}
+                                isParent = {item.isParent}
+                                children={item.children}
+                                lessonFromCourse={item.lessonFromCourse}
+                                courseId={item.courseId}
+                                authorname = {item.author.name}
+                                />
+                            ))
+                             }
+                        </Accordion.Panel>
+                    </Accordion.Item>
+                ))}
+        </Accordion>
+        : <h1>no questions yet</h1>}
+    </div>
+  )
+}
+
+export default QndAforTeacher
+
+{/* <QuestionComponent
              key={index}
              id = {item._id}
              body={item.body}
@@ -35,12 +81,4 @@ const QndAforTeacher = ({ id , courseId} : Props) => {
              lessonFromCourse={item.lessonFromCourse}
              courseId={item.courseId}
              authorname = {item.author.name}
-             />
-        ))
-        
-        : <h1>no questions yet</h1>}
-    </div>
-  )
-}
-
-export default QndAforTeacher
+             /> */}
