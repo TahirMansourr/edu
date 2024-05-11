@@ -37,7 +37,7 @@ const QndAforTeacher = ({ id , courseId} : Props) => {
     } ,[courseId])
 
   return (
-    <div>
+    <div className=' w-full'>
         {content && content?.length > 0 ? 
         <Accordion>
             { content.map((item : any , index : number) => (
@@ -69,16 +69,3 @@ const QndAforTeacher = ({ id , courseId} : Props) => {
 }
 
 export default QndAforTeacher
-
-{/* <QuestionComponent
-             key={index}
-             id = {item._id}
-             body={item.body}
-             createdAt={item.createdAt}
-             author={id}
-             isParent = {item.isParent}
-             children={item.children}
-             lessonFromCourse={item.lessonFromCourse}
-             courseId={item.courseId}
-             authorname = {item.author.name}
-             /> */}

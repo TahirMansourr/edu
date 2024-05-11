@@ -10,9 +10,10 @@ interface Props{
     postId : string,
     lessonFromCourse : string,
     courseId : string,
-    id : string
+    id : string,
+    isTeacher : boolean
 }
-const CommentForm = ( { postId , lessonFromCourse , courseId , id} : Props ) => {
+const CommentForm = ( { postId , lessonFromCourse , courseId , id, isTeacher} : Props ) => {
 
   const [loading ,setLoading] = useState<boolean>(false)
   const router = useRouter()
@@ -34,7 +35,8 @@ const CommentForm = ( { postId , lessonFromCourse , courseId , id} : Props ) => 
         courseId ,
         lessonFromCourse ,
         body : comment,
-        id 
+        id ,
+        isTeacher
     })
     form.reset()
   }

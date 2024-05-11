@@ -11,10 +11,11 @@ import QuestionComponent from './questionComponent'
 interface Props {
   id : string ,
   courseId : string ,
-  lessonFromCourse :string
+  lessonFromCourse :string,
+  isTeacher : boolean
 }
 const QndA =  (
-  {id , courseId , lessonFromCourse} : Props
+  {id , courseId , lessonFromCourse , isTeacher} : Props
 ) => {
   
   const [content , setContent] = useState<any []>([])
@@ -23,7 +24,7 @@ const QndA =  (
     
     async function getContentforQandA(){
       if(lessonFromCourse){
-      const content = await getMyPosts({courseId , lessonFromCourse , isTeacher:false})
+      const content = await getMyPosts({courseId , lessonFromCourse , isTeacher})
       setContent(content.data)
       }else return;
     }
@@ -50,6 +51,7 @@ const QndA =  (
               lessonFromCourse={item.lessonFromCourse}
               courseId={item.courseId}
               authorname = {item.author.name}
+              isTeacher = {isTeacher}
              />
           ))
         }

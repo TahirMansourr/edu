@@ -85,15 +85,19 @@ export async function getMyPosts({
     }
 }
 
-export async function createComment({postId , courseId , lessonFromCourse , body , id} : Props & {postId : string}){
+export async function createComment({
+    postId , courseId , lessonFromCourse , body , id , isTeacher} : Props & {postId : string , isTeacher :boolean
+    }){
     try {
+        const isAnswer = isTeacher===true ? true : false
         connectToDB()
         const createdPost =  await Post.create({
             body ,
             author : id,
             isParent : false,
             lessonFromCourse, 
-            courseId
+            courseId,
+            isAnswer : isAnswer
         })
         await Post.findOneAndUpdate({_id : postId} , {$push :{ children : createdPost._id}})
         

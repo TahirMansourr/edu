@@ -14,8 +14,9 @@ const QuestionComponent = ({
     lessonFromCourse,
     courseId,
     id, 
-    authorname
-} : PostInterface & {authorname : string}) => {
+    authorname,
+    isTeacher
+} : PostInterface & {authorname : string , isTeacher : boolean}) => {
 
     const [comment , setComment] = useState<boolean>(false)
     console.log('here is the children' , children);
@@ -30,6 +31,7 @@ const QuestionComponent = ({
              className=' hover:cursor-pointer mr-2'/>
             <MdOutlineDone color='green'  />
             <p className='text-green-500'>Answered</p>
+            <p>{authorname}</p>
             </div>  
             {
                 body ? <div> 
@@ -37,7 +39,7 @@ const QuestionComponent = ({
                             <div>
                                 {
                                     children.map((item : any , index : number) =>(
-                                        <div key={index} className=' flex flex-col w-full bg-orange-50 p-2 relative mb-2'>   
+                                        <div key={index} className={` flex flex-col w-full ${ item.isAnswer && item.isAnswer? 'bg-green-400': 'bg-orange-50'} p-2 relative mb-2`}>   
                                             <p className=' mb-3'> {item.body} </p>
                                             <footer className=' text-xs absolute bottom-1 right-1 mt-2'>-{item.author.name}</footer>
                                         </div>
@@ -48,6 +50,7 @@ const QuestionComponent = ({
                                     lessonFromCourse={lessonFromCourse}
                                     courseId={courseId}
                                     postId={id}
+                                    isTeacher = {isTeacher}
                                 />
                             </div>
                                 

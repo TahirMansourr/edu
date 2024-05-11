@@ -95,6 +95,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                id = {mongoUser._id}
                courseId = {selectedCourseIdforQndA as string}
                lessonFromCourse = {selectedLesson as string}
+               isTeacher = {mongoUser.isTeacher}
                />
             </div>
         </section >

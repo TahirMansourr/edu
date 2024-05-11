@@ -16,7 +16,8 @@ const postSchema = new mongoose.Schema({
         ref: "Post"
     }],
     lessonFromCourse : String,
-    courseId : String
+    courseId : String,
+    isAnswer : Boolean
 })
 
 const Post = mongoose.models.Post || mongoose.model('Post' , postSchema)
