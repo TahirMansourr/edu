@@ -1,16 +1,14 @@
 'use client'
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { ActionIcon, Box, Button, Code, FileInput, Group, Image, Input, Text, TextInput, Textarea, rem } from '@mantine/core';
+import { Box, Button, Group, Image, TextInput, Textarea} from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
-import { IoContractSharp } from 'react-icons/io5';
 import { randomId } from '@mantine/hooks';
- import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE ,FileWithPath} from '@mantine/dropzone';
 import { MdDeleteOutline } from "react-icons/md";
 import { CreateCourse } from '@/lib/actions/courseActions';
 import { UploadButton } from '@/lib/uploadthing';
-import { CourseInterface, mongoUserInterface } from '@/lib/types';
+import { CourseInterface} from '@/lib/types';
+import { Loader } from '@mantine/core'
 
 
 const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,requiredCourse : CourseInterface}) => {
@@ -29,10 +27,8 @@ const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,
         },
       });
 
-     
-      const [submittedValues, setSubmittedValues] = useState<typeof form.values | null>(null);
-      const [stateUpdate , setStateUpdater] = useState(true)
       const [loading , setLoading] = useState<boolean>(false)
+      const [response , setResponse] = useState<string>('')
 
       useEffect(()=>{
         console.log('i have changed' , requiredCourse)
@@ -95,14 +91,22 @@ const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,
 
       async function handleSubmit(values : Omit<CourseInterface , 'posts' |'author'>){
         setLoading(true)
-        await CreateCourse(values , mongoUserId)
+        await CreateCourse(values , mongoUserId).then((res : {status : string , message : string}) => {
+          if(res.status === 'OK'){
+            setResponse(res.message)
+            setLoading(false)
+          }else{
+            setResponse('Sorry , try again')
+            setLoading(false)
+          }
+        })
       }
   return (
     <form 
     onSubmit={form.onSubmit((values) => handleSubmit(values))}
     
     >
-        <div className=' mx-auto w-[90%]'>
+        <div className=' mx-auto w-full'>
     <TextInput
       {...form.getInputProps('name')}
       key={form.key('name')}
@@ -156,7 +160,10 @@ const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,
       </Group>
     </Box>
     <Button type="submit" mt="md">
-      Submit
+      {
+        loading?<div className='flex items-center justify-center gap-2'><Loader type='dots' color='white'/>Loading ...</div>: response === '' ? 'submit' : response
+      }
+      
     </Button>
   </div>
   </form>

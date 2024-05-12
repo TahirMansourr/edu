@@ -17,6 +17,7 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
     const [requiredCourse , setRequiredCourse] = useState<CourseInterface>()
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
 
+
     const handleSelectedCourse = (name : string )=>{
 
         setSelectedCourse(name)
@@ -62,9 +63,9 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                 </div>              
             </div>
         </div>
-        <div className=' flex flex-initial flex-col gap-3 w-[45rem] border-r'>
+        <div className=' flex flex-initial flex-col gap-3 w-[38rem] border-r pr-4 '>
             <div className=' mx-auto font-bold'>{selectedCourse}</div>
-            <div className='mx-auto'>{
+            <div className='w-full mx-auto '>{
                 requiredCourse ?
                 <CreateNewCourse 
                  requiredCourse = {requiredCourse}
@@ -76,12 +77,14 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
         <div className=' flex flex-col flex-initial w-[40rem] gap-3'>
             {requiredCourse ? <div className=' mx-auto font-bold '>Q&A</div> : null}
             { requiredCourse &&
-                requiredCourse ? <QndAforTeacher
-                 id={mongoUser._id}
-                 name = {mongoUser.name}
-                 isTeacher = {mongoUser.isTeacher}
-                 courseId={requiredCourse._id}
-              /> : <h1 className=' text-center font-bold p-4 mt-3 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose Course to see Q&A Section</h1>
+                requiredCourse ? 
+                <QndAforTeacher
+                    id={mongoUser._id}
+                    name = {mongoUser.name}
+                    isTeacher = {mongoUser.isTeacher}
+                    courseId={requiredCourse._id}
+                    /> 
+              : <h1 className=' text-center font-bold p-4 mt-3 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose Course to see Q&A Section</h1>
             }
            
         </div>

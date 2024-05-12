@@ -2,7 +2,7 @@
 import { getMyPosts } from '@/lib/actions/postActions'
 import React, { useEffect, useState } from 'react'
 import QuestionComponent from './questionComponent'
-import { Accordion } from '@mantine/core';
+import { Accordion, Loader } from '@mantine/core';
 
 interface Props {
     id : string ,
@@ -14,8 +14,10 @@ interface Props {
 const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
 
     const [content , setContent] = useState<any []>()
+    const [loading , setLoading] = useState<boolean>(false)
 
     useEffect(()=>{
+        setLoading(true)
         async function getContentAtStart() {
             const content = await getMyPosts({lessonFromCourse : 'null', courseId , isTeacher : true})
             const groupedContent = content.data.reduce((grouped : any, item : any) => {
@@ -34,13 +36,14 @@ const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
             }));
             console.log(contentArray)
             setContent(contentArray)
+            setLoading(false)
         }
         getContentAtStart()
     } ,[courseId])
 
   return (
     <div className=' w-full'>
-        {content && content?.length > 0 ? 
+        { !loading ? content && content?.length > 0 ? 
         <Accordion>
             { content.map((item : any , index : number) => (
                     <Accordion.Item key={index} value={item.lessonFromCourse} >
@@ -67,7 +70,11 @@ const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
                     </Accordion.Item>
                 ))}
         </Accordion>
-        : <h1>no questions yet</h1>}
+        : <h1>no questions yet</h1> : 
+        <div className='flex gap-3 items-center justify-center mt-28'>
+            <Loader type='bars'/>
+            <h1 className=' font-bold text-xl'>Looking for the Qs and As</h1>
+        </div>}
     </div>
   )
 }
