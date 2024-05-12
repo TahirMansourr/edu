@@ -6,10 +6,11 @@ import { Accordion } from '@mantine/core';
 
 interface Props {
     id : string ,
-    courseId : string 
+    courseId : string,
+    isTeacher : boolean
   }
 
-const QndAforTeacher = ({ id , courseId} : Props) => {
+const QndAforTeacher = ({ id , courseId , isTeacher} : Props) => {
 
     const [content , setContent] = useState<any []>()
 
@@ -56,6 +57,7 @@ const QndAforTeacher = ({ id , courseId} : Props) => {
                                 lessonFromCourse={item.lessonFromCourse}
                                 courseId={item.courseId}
                                 authorname = {item.author.name}
+                                isTeacher = {isTeacher}
                                 />
                             ))
                              }

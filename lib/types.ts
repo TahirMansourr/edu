@@ -31,5 +31,6 @@ export interface PostInterface{
     isParent : boolean,
     children : PostInterface[],
     lessonFromCourse : string,
-    courseId : string
+    courseId : string,
+    isAnswer? : boolean
 }

@@ -19,7 +19,24 @@ const QuestionComponent = ({
 } : PostInterface & {authorname : string , isTeacher : boolean}) => {
 
     const [comment , setComment] = useState<boolean>(false)
-    console.log('here is the children' , children);
+    // console.log('here is the children' , children);
+
+    const rearrangedArray = children.sort((a,b)=>{
+        if(a.isAnswer && !b.isAnswer){
+            return -1
+        }if(!a.isAnswer && b.isAnswer){
+            return 1
+        }else{
+            return 0
+        }
+    })
+
+    const isThisQuestionAnswered = children.filter((item : any) => item.isAnswer === true)
+    const gettingAnsweredby = isThisQuestionAnswered.map((item : any) => (
+        item.author.name
+    ))
+   //TODO get the names of the people who answered
+    
     
   return (
     <section className=' bg-orange-100 rounded-md w-full mb-2 p-2'>
@@ -29,8 +46,15 @@ const QuestionComponent = ({
             <GoCommentDiscussion
              onClick={()=>setComment(!comment)}
              className=' hover:cursor-pointer mr-2'/>
-            <MdOutlineDone color='green'  />
-            <p className='text-green-500'>Answered</p>
+             {
+                isThisQuestionAnswered.length > 0 ?
+                <div className='flex items-center'>
+                    <MdOutlineDone color='green'  />
+                    <p className='text-green-500'>Answered by {gettingAnsweredby[0]}</p>
+                </div>
+                :null
+             }
+            
             <p>{authorname}</p>
             </div>  
             {
@@ -38,8 +62,8 @@ const QuestionComponent = ({
                             { comment ? 
                             <div>
                                 {
-                                    children.map((item : any , index : number) =>(
-                                        <div key={index} className={` flex flex-col w-full ${ item.isAnswer && item.isAnswer? 'bg-green-400': 'bg-orange-50'} p-2 relative mb-2`}>   
+                                    rearrangedArray.map((item : any , index : number) =>(
+                                        <div key={index} className={` flex flex-col w-full ${ item.isAnswer && item.isAnswer? 'bg-gradient-to-br from-green-700 to-green-500 text-white shadow-lg rounded-md': 'bg-orange-50 '} p-2 relative rounded-md mb-2`}>   
                                             <p className=' mb-3'> {item.body} </p>
                                             <footer className=' text-xs absolute bottom-1 right-1 mt-2'>-{item.author.name}</footer>
                                         </div>
