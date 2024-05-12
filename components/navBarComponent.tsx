@@ -14,10 +14,12 @@ const NavBarComponent = () => {
          <ThemeToggler/>
          
             <SignedOut>
-              <SignInButton />
+              
+              <SignInButton/>
             </SignedOut>
-            <SignedIn >
+            <SignedIn>
               <UserButton afterSignOutUrl='/' />
+              <Link href={'teacher'}>My dashboard</Link>
             </SignedIn>
           
          </div>
