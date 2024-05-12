@@ -16,8 +16,8 @@ const NavBarComponent = () => {
             <SignedOut>
               <SignInButton />
             </SignedOut>
-            <SignedIn>
-              <UserButton />
+            <SignedIn >
+              <UserButton afterSignOutUrl='/' />
             </SignedIn>
           
          </div>

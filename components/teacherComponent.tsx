@@ -79,6 +79,7 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
             { requiredCourse &&
                  <QndAforTeacher
                  id={mongoUser._id}
+                 name = {mongoUser.name}
                  isTeacher = {mongoUser.isTeacher}
                  courseId={requiredCourse._id}
               />

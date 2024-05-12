@@ -15,8 +15,9 @@ const QuestionComponent = ({
     courseId,
     id, 
     authorname,
-    isTeacher
-} : PostInterface & {authorname : string , isTeacher : boolean}) => {
+    isTeacher,
+    name
+} : PostInterface & {authorname : string , isTeacher : boolean , name : string}) => {
 
     const [comment , setComment] = useState<boolean>(false)
     // console.log('here is the children' , children);
@@ -36,16 +37,19 @@ const QuestionComponent = ({
         item.author.name
     ))
    //TODO get the names of the people who answered
-    
+   
     
   return (
     <section className=' bg-orange-100 rounded-md w-full mb-2 p-2'>
         - {body}
         <div className=' flex flex-col px-3 gap-3 w-full'>
+        <p className=' text-xs text-end w-full'>-{authorname}</p>
             <div className=' flex items-center w-full '>   
             <GoCommentDiscussion
              onClick={()=>setComment(!comment)}
-             className=' hover:cursor-pointer mr-2'/>
+             className=' hover:cursor-pointer mr-2 hover:scale-110 shadow-md'
+             />
+            
              {
                 isThisQuestionAnswered.length > 0 ?
                 <div className='flex items-center'>
@@ -55,7 +59,7 @@ const QuestionComponent = ({
                 :null
              }
             
-            <p>{authorname}</p>
+            
             </div>  
             {
                 body ? <div> 

@@ -54,9 +54,16 @@ export async function getMyPosts({
                 populate : {
                     path : 'author',
                     model : User
-                }
+                },
             }
         }).populate({
+            path: 'posts',
+            populate: {
+                path: 'author',
+                model: User
+            }
+        })
+        .populate({
             path : 'author',
             model : User
         }).lean()

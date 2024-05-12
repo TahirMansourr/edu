@@ -7,10 +7,11 @@ import { Accordion } from '@mantine/core';
 interface Props {
     id : string ,
     courseId : string,
-    isTeacher : boolean
+    isTeacher : boolean,
+    name : string
   }
 
-const QndAforTeacher = ({ id , courseId , isTeacher} : Props) => {
+const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
 
     const [content , setContent] = useState<any []>()
 
@@ -48,6 +49,7 @@ const QndAforTeacher = ({ id , courseId , isTeacher} : Props) => {
                             { item.items.map((item : any , index : number) =>(
                                 <QuestionComponent
                                 key={index}
+                                name = {name}
                                 id = {item._id}
                                 body={item.body}
                                 createdAt={item.createdAt}
