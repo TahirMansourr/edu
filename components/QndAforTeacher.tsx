@@ -52,7 +52,6 @@ const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
                             { item.items.map((item : any , index : number) =>(
                                 <QuestionComponent
                                 key={index}
-                                name = {name}
                                 id = {item._id}
                                 body={item.body}
                                 createdAt={item.createdAt}

@@ -16,8 +16,7 @@ const QuestionComponent = ({
     id, 
     authorname,
     isTeacher,
-    name
-} : PostInterface & {authorname : string , isTeacher : boolean , name : string}) => {
+} : PostInterface & {authorname : string , isTeacher : boolean }) => {
 
     const [comment , setComment] = useState<boolean>(false)
     // console.log('here is the children' , children);
