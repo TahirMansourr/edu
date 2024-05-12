@@ -73,26 +73,21 @@ const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,
                     className='text-blue-400 bg-blue-500'
                     endpoint="videoUploader"
                     onClientUploadComplete={(res) => {
-                      // Do something with the response
                       console.log("Files: ", res);
                       form.setFieldValue(`videos.${index}.video` , res[0].url)
                       alert("Upload Completed");
                       
                     }}
                     onUploadError={(error: Error) => {
-                      // Do something with the error.
                       alert(`ERROR! ${error.message}`);
                     }}
-      />
-                
+                   />
             </div>
         
            <div className=' mt-6 pt-6'>
-            
                 <MdDeleteOutline 
                 size={40} 
-                 onClick={() => form.removeListItem('videos', index)} className=' mt-3' />
-            
+                onClick={() => form.removeListItem('videos', index)} className=' mt-3' />
            </div>
         
       </div>

@@ -19,8 +19,7 @@ interface CourseTypes{
 export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'> , author : string) {
     try {
          connectToDB()
-        
-        
+         const message = args._id != '' ? 'Successfully updated' : 'Successfully created'
         if(args._id != '' ){
             const newCourse = await Course.findOneAndUpdate({_id : args._id},{
                 name : args.name,
@@ -43,8 +42,12 @@ export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author
             const updatedUser = await User.findOneAndUpdate(
                 { _id: author  },
                 { $push : {courses : newCourse} }
-             ,{upsert : true} );
+               ,{upsert : true} );
               await updatedUser.save();
+            }
+            return {
+                status : 'OK',
+                message  
             }
     } catch (error : any) {
         throw new Error( `error ${error}`)

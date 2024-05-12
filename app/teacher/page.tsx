@@ -8,7 +8,7 @@ import StudentPageComponent from '@/components/studentPageComponent'
 import { redirect } from 'next/navigation'
 
 
-const TeacherPage = async ({Params} : {Params : string}) => {
+const TeacherPage = async () => {
     const user = await currentUser()
     if(!user) throw new Error('Clerk User not found in user/page.tsx')
 
