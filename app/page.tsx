@@ -3,6 +3,7 @@ import ielts from '.././public/ielts.png'
 import { Boogaloo } from "next/font/google";
 import { Button } from "@mantine/core";
 import { Pattaya } from "next/font/google";
+import Link from "next/link";
 
 const georama = Boogaloo({
   weight : '400',
@@ -47,7 +48,7 @@ export default function Home() {
                   <div>rating : *****</div>
                   </div>
                  
-                  <Button  size="lg">Get Course</Button>
+                  <Link href={'https://buy.stripe.com/test_eVa4k96JPgzO4Fy5kk'} > get Course</Link>
                 </div>
               </div>
               <Image 

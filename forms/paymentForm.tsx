@@ -44,7 +44,7 @@ export default function PaymentForm() {
 
   return (
     <form onSubmit={onSubmit}>
-      <CardElement />
+      <CardElement className=" w"/>
       <button type="submit">Submit</button>
     </form>
   );

@@ -11,7 +11,7 @@ const stripePromise = loadStripe(
 
 export default function Home() {
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} >
       <PaymentForm />
     </Elements>
   );
