@@ -19,7 +19,7 @@ export interface CourseInterface{
         title : string,
         video : string | Url
     }[],
-    author : string,
+    author : string | mongoUserInterface,
         
 }
 

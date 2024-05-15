@@ -7,7 +7,9 @@ import { Boogaloo } from "next/font/google";
 import { Pattaya } from "next/font/google";
 import bankak from '../public/bankak.jpeg'
 import Link from "next/link";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { CourseInterface } from '@/lib/types';
+import { getMyCourses, PendingStudentsForCourse } from '@/lib/actions/courseActions';
 
 const georama = Boogaloo({
   weight : '400',
@@ -19,30 +21,54 @@ const pattaya = Pattaya({
   subsets :["latin"]
 })
 
-const CourseComponent = () => {
+const CourseComponent = ({mongoId , courses} : {mongoId : string, courses : any[] | undefined}) => {
+
     const [opened, { open, close }] = useDisclosure(false);
     const [bankakk , setBankak] = useState<boolean>(false)
+    const [mongoUserCourses , setMongoUserCourses] = useState<CourseInterface[]>()
+    const [theItemId , setTheItemId] = useState<string>('')
+
+    useEffect(()=>{
+        async function getMyCoursesAtStart(){
+            const courses = await getMyCourses()
+            setMongoUserCourses(courses as CourseInterface[])
+            // console.log(mongoUserCourses);
+        }
+        getMyCoursesAtStart()
+        // console.log(mongoId)
+    },[])
+
+    async function handleCompletedPayment(requesterId : string , courseId : string){
+        await PendingStudentsForCourse(requesterId , courseId)
+        console.log(courseId);
+        
+    }
   return (
     <main className=" min-h-screen flex flex-col pt-4">
-    <section className="flex w-screen">
+        {
+            mongoUserCourses ? mongoUserCourses.map((item : CourseInterface , index : number)=>(
+     <section className="flex w-screen" key={index}>
         <section className="flex justify-between w-[90%] mx-auto items-center border p-4 rounded-xl shadow-md">
             <div className={`${georama.className} flex flex-col text-lg`}>
+
+              <div className="underline">
+                  Course Name
+              </div>
+              <div className=' pb-3'>
+                  {item.name}
+              </div>
               <div className="underline">
                   Course Content
               </div>
               <div className=" max-w-[80%]">
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. At cupiditate alias itaque corrupti adipisci sed doloribus officiis animi aperiam maiores, voluptatum quibusdam! Natus neque sapiente ex, perspiciatis iure amet aperiam?
+                   {item.content}
               </div>
               <br/>
               <div className=" underline">
-                  Course Teachers
+                  Course Teacher
               </div>
               <div className=" max-w-[80%]">
-                  <ul>
-                    <li>Wala Mansour</li>
-                    <li>Shimaa</li>
-                    <li>Hind Mansour</li>
-                  </ul>
+                  {item.author.name }
               </div>
               <br />
               <div className="flex justify-around w-full items-center">
@@ -51,7 +77,10 @@ const CourseComponent = () => {
                 <div>rating : *****</div>
                 </div>
                
-                <Button onClick={open}>Get Course</Button>
+                <Button onClick={
+                  ()=>{ open(); setTheItemId(item._id); console.log(theItemId)}
+                    }>Get Course</Button>
+                <Button onClick={ () => console.log(item._id)}>Get Course</Button>
                 <Modal opened={opened} onClose={close} title="Payment Method">
                     {
                         !bankakk ?
@@ -64,15 +93,17 @@ const CourseComponent = () => {
                             onClick={()=> setBankak(!bankakk)}
                         />
                         : 
+                        
                         <div>
+                            <div onClick={()=>setBankak(!bankakk)}>x</div>
                             <h1 className='whitespace-pre-line'>
                              Send the amount on to account number 432432 and write your username on the comment section.
                              REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.
                              You should be admitted within 24 hours.
                              If you are not admitted within 24 hours please contact 
                              us at eduemail@gmail.com
-                          </h1>
-                          <Button onClick={()=> {}}>Completed payment</Button>
+                            </h1>
+                          <Button onClick={()=> { handleCompletedPayment(mongoId , theItemId as string) }}>Completed payment</Button>
                         </div>
                     }
                    
@@ -81,7 +112,7 @@ const CourseComponent = () => {
               </div>
             </div>
             <Image 
-              src={ielts}
+              src={item.coursePicture === ''? ielts : item.coursePicture as string}
               alt="Course Image"
               width={300}
               height={300} 
@@ -89,6 +120,9 @@ const CourseComponent = () => {
               />
         </section>
     </section>
+            )) : null
+        }
+    
   </main>
   )
 }

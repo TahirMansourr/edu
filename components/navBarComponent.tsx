@@ -27,7 +27,10 @@ const NavBarComponent = async () => {
             </SignedOut>
             <SignedIn>
             { isTeacher ?
-            <PendigStudentComponent/>
+            <div>
+              <PendigStudentComponent/>
+            </div>
+            
            : null }
             <Link href={'teacher'}>
               <div className=' p-3 bg-gradient-to-br from-blue-950 to to-blue-500 rounded-lg hover:scale-105 shadow-md text-white'>
