@@ -14,7 +14,9 @@ const courseSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "Post"
     }],
-    author : mongoose.Schema.Types.ObjectId
+    author : mongoose.Schema.Types.ObjectId,
+    students : [mongoose.Schema.Types.ObjectId],
+    pendingStudents : [mongoose.Schema.Types.ObjectId]
 })
 
 const Course = mongoose.models.Course || mongoose.model("Course" , courseSchema)
