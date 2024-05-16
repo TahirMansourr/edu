@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import qanda2 from '../public/qanda2.jpeg'
 import Image from 'next/image'
 import QuestionComponent from './questionComponent'
+import { ScrollArea } from '@mantine/core'
 
 
 interface Props {
@@ -37,6 +38,7 @@ const QndA =  (
       <h1 className=' mx-auto font-bold text-lg shadow-sm'> Q & A</h1>
       
      { content.length > 0 ?
+     <ScrollArea.Autosize mah={420}>
       <section>
         {
           content.map((item : any , index : number) =>(
@@ -56,17 +58,21 @@ const QndA =  (
           ))
         }
       </section>
+      </ScrollArea.Autosize>
       
-    : <section >
-    <Image 
-     src={qanda2}
-     alt='q and a section'
-     className='w-full h-fit absolute -top-1  '
-     />
-     <h1 className='text-center absolute bottom-5'> Choose a lesson from the course to view the Q&A section</h1>
-  </section> }
-      { lessonFromCourse?
-      <footer className=' absolute bottom-0 w-full'>
+    : 
+    <section >
+        <Image 
+        src={qanda2}
+        alt='q and a section'
+        className='w-full h-fit absolute -top-1  '
+        />
+        <h1 className='text-center absolute bottom-5'> Choose a lesson from the course to view the Q&A section</h1>
+    </section>
+   }
+      { 
+      lessonFromCourse?
+      <footer className=' absolute bottom-0 w-full pt-3'>
         <QuestionForm 
           id = {id}
           courseId={courseId}

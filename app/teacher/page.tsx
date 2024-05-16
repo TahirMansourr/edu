@@ -19,7 +19,7 @@ const TeacherPage = async () => {
 
   console.log(mongoUser)
   const pageComponent = mongoUser.isTeacher ?
-   <TeacherComponent mongoUser = {mongoUser} /> 
+     <TeacherComponent mongoUser = {mongoUser} /> 
    : <StudentPageComponent mongoUser={mongoUser} />
 
 

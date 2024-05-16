@@ -39,7 +39,7 @@ export async function CreateCourse(args : typeForCreateCourse , author : string)
             }
             return {
                 status : 'OK',
-                message  
+                message  : 'successfull'
             }
     } catch (error : any) {
         throw new Error( `error ${error}`)

@@ -1,7 +1,7 @@
 'use client'
 
 import { CreateUser } from '@/lib/actions/userActions';
-import { TextInput, Checkbox, Button, Group, Box, Textarea } from '@mantine/core';
+import { TextInput, Checkbox, Button, Group, Box, Textarea, Loader } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import {useRouter} from 'next/navigation'
@@ -16,6 +16,7 @@ interface Props {
 const QuestionForm = ( {id , courseId , lessonFromCourse} : Props) => {
 
   const [loading ,setLoading] = useState<boolean>(false)
+  const [response , setResponse] = useState<string>()
   const router = useRouter()
   const form = useForm({
     mode: 'uncontrolled',
@@ -34,6 +35,13 @@ const QuestionForm = ( {id , courseId , lessonFromCourse} : Props) => {
       id,
       courseId,
       lessonFromCourse
+    }).then((res : any) => {
+        if(res.status === "OK"){
+        setResponse(res.message)}
+        else{
+          setResponse('Oops something went wrong')
+        }
+        setLoading(false)
     })
    
   }
@@ -51,7 +59,7 @@ const QuestionForm = ( {id , courseId , lessonFromCourse} : Props) => {
         />
 
         <Group justify="flex-end" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{response ? response : loading ? <Loader type='dots'></Loader> : 'Submit'}</Button>
         </Group>
         </div>
       </form>

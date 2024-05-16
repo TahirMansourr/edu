@@ -22,6 +22,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
     const [selectedCourse , setSelectedCourse] = useState<string | null>(null)
     const [selectedLesson , setSelectedLesson] = useState<String | null>(null)
     const [selectedCourseIdforQndA , setSelectedCourseIdforQndA] = useState<string>()
+    const [wantedVideo , setWantedVideo] = useState<string>()
 
     const handleSelectedCourse = (name : string , decider : string)=>{
 
@@ -32,6 +33,8 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
         setSelectedLesson(null)
         }else if(decider === 'L'){
         setSelectedLesson(name)
+        const vid = requiredCourse.videos.find((item : any)=> item.title === name)
+        setWantedVideo(vid.video)
         }        
     }
 
@@ -59,17 +62,16 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                                 </div> 
                                )
                             )}
-                            
-                        
                     </div>
                 </div>
             </div>
             <div className=' flex flex-initial flex-col gap-3 w-[45rem] border-r'>
                 
-            <div className='ease-in-out mx-auto font-bold text-lg p-2 shadow-lg transition-all duration-500 rounded-md'>{selectedCourse}</div>
-
-                <div className='rounded-lg mx-auto'></div>
-                <VideoPlayer/>
+            <div className='ease-in-out mx-auto font-bold text-lg p-2 shadow-lg transition-all duration-500 rounded-md'>
+                {selectedCourse}
+            </div>
+                { wantedVideo ? 
+                <VideoPlayer videoUrl = {wantedVideo}/> : <h1 className=' min-h-[30rem]'>Choose a lesson</h1>}
                 <div className=' mt-5'>Rest of the lessons</div>
                 <div>    
                       {requiredCourse?.videos.map((item : any , index : number) => (
