@@ -1,11 +1,9 @@
 'use server'
-import mongoose from 'mongoose'
+
 import { connectToDB } from '../mongoose'
 import Course from '../models/course'
-import { currentUser } from '@clerk/nextjs/server'
 import User from '../models/user'
 import { CourseInterface } from '../types'
-import { courses } from '@/components/dummyData'
 
 type typeForCreateCourse = Omit<CourseInterface, 'posts'|'author'|'pendingStudents'| 'newPending'>
 
