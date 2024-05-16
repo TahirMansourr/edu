@@ -21,11 +21,11 @@ const NavBarComponent = async () => {
   const newPendingStudents: boolean | undefined = mongoUser?.courses && mongoUser.courses.length > 0 ? mongoUser?.courses.some(item => item.newPending === true) : undefined;
 
   return (
-    <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 py-4 px-3 flex justify-between items-center '>
-        <Link href={'/'}><h1 className='font-bold text-5xl italic'>EDU</h1></Link>
-        <div className=' flex items-center gap-6'>
-         <Link href={''} className='line-through'>Apply for teaching</Link>
-         <div className=' flex gap-3 items-center'>
+    <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 sm:py-4 sm:px-3 sm:flex sm:justify-between sm:items-center flex items-center justify-center p-1  '>
+        <Link href={'/'}><h1 className='sm:font-bold sm:text-5xl sm:italic hidden '>EDU</h1></Link>
+        <div className=' flex items-center sm:gap-6 gap-1'>
+         <Link href={''} className='line-through hidden'>Apply for teaching</Link>
+         <div className=' flex sm:gap-3 items-center gap-1'>
             <SignedOut>             
               <SignInButton/>
             </SignedOut>
@@ -45,7 +45,7 @@ const NavBarComponent = async () => {
             
            : null }
             <Link href={'teacher'}>
-              <div className=' p-3 bg-gradient-to-br from-blue-950 to to-blue-500 rounded-lg hover:scale-105 shadow-md text-white'>
+              <div className=' sm:p-3 bg-gradient-to-br from-blue-950 to to-blue-500 sm:rounded-lg hover:scale-105 shadow-md text-white text-sm p-1 rounded-md'>
               Dashboard
               </div>
               </Link>

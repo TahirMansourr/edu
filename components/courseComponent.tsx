@@ -45,11 +45,13 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
         
     }
   return (
-    <main className=" min-h-screen flex flex-col pt-4">
+    <main className=" min-h-screen flex flex-col pt-4 ">
         {
             mongoUserCourses ? mongoUserCourses.map((item : CourseInterface , index : number)=>(
-     <section className="flex w-screen" key={index}>
-        <section className="flex justify-between w-[90%] mx-auto items-center border p-4 rounded-xl shadow-md">
+     <section className="sm:flex sm:w-screen flex flex-col w-screen justify-center items-center " key={index}>
+        <section 
+        className="sm:flex sm:justify-between sm:w-[90%] sm:mx-auto sm:items-center sm:border
+                   sm:p-4 sm:rounded-xl sm:shadow-md w-[90%] border p-2 rounded-md mb-2">
             <div className={`${georama.className} flex flex-col text-lg`}>
 
               <div className="underline">

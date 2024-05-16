@@ -48,7 +48,7 @@ const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface
     </Modal>
 
       <div 
-      className=' p-3 bg-gradient-to-br from-blue-950 to to-blue-500 rounded-lg hover:scale-105 shadow-md text-white'
+      className='sm:p-3 bg-gradient-to-br from-blue-950 to to-blue-500 sm:rounded-lg hover:scale-105 shadow-md text-white text-sm p-1 rounded-md'
       onClick={open}>Pending Students</div>
     </div>
   )
