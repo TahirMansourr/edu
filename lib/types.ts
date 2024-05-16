@@ -20,6 +20,7 @@ export interface CourseInterface{
         video : string | Url
     }[],
     author :mongoUserInterface,
+    pendingStudents : mongoUserInterface[]
         
 }
 

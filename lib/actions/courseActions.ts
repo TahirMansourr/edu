@@ -63,11 +63,7 @@ export async function PendingStudentsForCourse( mongoId : string , courseId : st
     try {
         connectToDB()
         const requiredCourse = await Course.findOneAndUpdate({_id : courseId} ,
-             {$push : {
-                pendingStudents : {
-                    student : mongoId ,
-                     course : courseId
-                    }}} , {upsert : true})
+             {$push : {pendingStudents :  mongoId }} , {upsert : true})
         await requiredCourse.save()
         return {status : 'Ok' , message : 'pending'}
     } catch (error) {

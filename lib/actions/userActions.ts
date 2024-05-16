@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { connectToDB } from "../mongoose";
 import User from "../models/user";
 import Course from "../models/course";
+import { mongoUserInterface } from "../types";
 
 export async function CreateUser(username : string , userId : string , isTeacher : boolean) {
     try {
@@ -38,12 +39,18 @@ export async function CreateTeacher(username : string , userId : string , isTeac
 export async function getMongoUser(userId : string){
     try {
         connectToDB()
-        const mongoUser = await User.findOne({id : userId})
+        const mongoUser : mongoUserInterface | null = await User.findOne({id : userId})
         .populate({
             path : 'courses',
-            model : Course
+            model : Course,
+            populate : {
+             path : "pendingStudents",
+             model : User
+            },
         }).lean()
-        return mongoUser
+        console.log('this is your mongouser populated as you asked') , mongoUser;
+        
+        return mongoUser 
     } catch (error) {
         throw new Error(`Error at userActions.tsx at getMongoUser : ${error}`)
     }

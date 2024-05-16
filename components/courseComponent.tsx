@@ -21,7 +21,7 @@ const pattaya = Pattaya({
   subsets :["latin"]
 })
 
-const CourseComponent = ({mongoId , courses} : {mongoId : string, courses : any[] | undefined}) => {
+const CourseComponent = ({mongoId , courses} : {mongoId : string | undefined, courses : any[] | undefined}) => {
 
     const [opened, { open, close }] = useDisclosure(false);
     const [bankakk , setBankak] = useState<boolean>(false)
@@ -77,11 +77,14 @@ const CourseComponent = ({mongoId , courses} : {mongoId : string, courses : any[
                 <div>rating : *****</div>
                 </div>
                
-                <Button onClick={
-                  ()=>{ open(); setTheItemId(item._id); console.log(theItemId)}
-                    }>Get Course</Button>
-                <Button onClick={ () => console.log(item._id)}>Get Course</Button>
-                <Modal opened={opened} onClose={close} title="Payment Method">
+                <Button 
+                    onClick={
+                    ()=>{ open(); setTheItemId(item._id); console.log(theItemId)}
+                    }>
+                        Get Course
+                </Button>
+
+                <Modal opened={opened} onClose={()=>{close() ; setBankak(!bankakk)}} title="Payment Method">
                     {
                         !bankakk ?
                         <Image 
@@ -95,15 +98,12 @@ const CourseComponent = ({mongoId , courses} : {mongoId : string, courses : any[
                         : 
                         
                         <div>
-                            <div onClick={()=>setBankak(!bankakk)}>x</div>
-                            <h1 className='whitespace-pre-line'>
-                             Send the amount on to account number 432432 and write your username on the comment section.
-                             REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.
-                             You should be admitted within 24 hours.
-                             If you are not admitted within 24 hours please contact 
-                             us at eduemail@gmail.com
-                            </h1>
-                          <Button onClick={()=> { handleCompletedPayment(mongoId , theItemId as string) }}>Completed payment</Button>
+                            <div className='flex flex-col'>
+                            <h1> Send the amount on to account number <b className=' underline'>432432</b> and <b>write your username</b> on the comment section.</h1>
+                            <p> REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.</p>
+                            <p> You should be admitted within 24 hours.If you are not admitted within 24 hours please contact  us at eduemail@gmail.com</p>
+                            </div>
+                          <Button onClick={()=> { mongoId &&  handleCompletedPayment(mongoId , theItemId as string) }}>Completed payment</Button>
                         </div>
                     }
                    

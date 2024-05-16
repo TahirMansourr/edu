@@ -14,14 +14,18 @@ const courseSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "Post"
     }],
-    author : mongoose.Schema.Types.ObjectId,
-    students : [mongoose.Schema.Types.ObjectId],
-    pendingStudents : [
-        { 
-            student : mongoose.Schema.Types.ObjectId ,
-            course : mongoose.Schema.Types.ObjectId
-        }
-    ]
+    author : {
+        type : mongoose.Schema.Types.ObjectId ,
+         ref : 'User'
+        },
+    students : [{
+        type :mongoose.Schema.Types.ObjectId ,
+         ref : 'User'
+        }],
+    pendingStudents : [{
+        type : mongoose.Schema.Types.ObjectId,
+         ref: "User"
+        }]
 })
 
 const Course = mongoose.models.Course || mongoose.model("Course" , courseSchema)

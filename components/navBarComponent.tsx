@@ -14,7 +14,8 @@ const NavBarComponent = async () => {
   const mongoUser= await getMongoUser(user?.id!)
   if(!mongoUser){ isTeacher = false}
   if(Array.isArray(mongoUser)) {isTeacher = false}
-  else{isTeacher = mongoUser?.isTeacher}
+  else{isTeacher = mongoUser?.isTeacher, console.log('this is your mongoUserbro' , mongoUser?.courses);
+  }
 
   return (
     <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 py-4 px-3 flex justify-between items-center '>
