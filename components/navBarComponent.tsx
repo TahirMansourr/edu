@@ -22,7 +22,7 @@ const NavBarComponent = async () => {
 
   return (
     <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 py-4 px-3 flex justify-between items-center '>
-        <h1>NavBar Component</h1>
+        <Link href={'/'}><h1 className='font-bold text-5xl italic'>EDU</h1></Link>
         <div className=' flex items-center gap-6'>
          <Link href={''} className='line-through'>Apply for teaching</Link>
          <div className=' flex gap-3 items-center'>

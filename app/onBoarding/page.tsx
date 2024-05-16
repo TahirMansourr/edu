@@ -1,17 +1,28 @@
 import Demo from '@/forms/createUserForm'
-import { currentUser } from '@clerk/nextjs/server'
+import { currentUser, User } from '@clerk/nextjs/server'
 import React from 'react'
+import { Loader } from '@mantine/core';
+import { CreateUser } from '@/lib/actions/userActions';
+import { redirect } from 'next/navigation';
 
 const onBoarding = async () => {
 
-    const user = await currentUser()
-    console.log(user?.username);
+     await currentUser().then(async (res : any) =>{
+      if(res){
+        await CreateUser(res.username , res.id , false).then((res:any) => res.status === 'OK' ? redirect('/teacher') : redirect('/'))
+      }else{
+        redirect('/')
+      }
+    })
     
-    const userId = user?.id
+
+   
 
   return (
     <div className=' h-screen flex items-center'>
-        <Demo userId = {userId as string}/>
+       <div className=' h-screen flex items-center justify-center'>
+            Creating Your user <Loader color="blue" type="dots" />;
+        </div>
     </div>
     
   )
