@@ -29,7 +29,7 @@ const NavBarComponent = async () => {
             <SignedIn>
             { isTeacher ?
             <div>
-              <PendigStudentComponent/>
+              <PendigStudentComponent courses = {mongoUser?.courses}/>
             </div>
             
            : null }
