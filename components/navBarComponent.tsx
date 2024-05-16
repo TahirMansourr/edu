@@ -35,9 +35,9 @@ const NavBarComponent = async () => {
               {
                 newPendingStudents && newPendingStudents ?
                 <Indicator processing color='red' size={16} position='top-start'> 
-                <PendigStudentComponent courses = {mongoUser?.courses}/>
+                <PendigStudentComponent courses = {mongoUser?.courses} mongoId = {mongoUser?._id}/>
                 </Indicator> :
-                <PendigStudentComponent courses = {mongoUser?.courses}/>
+                <PendigStudentComponent courses = {mongoUser?.courses} mongoId = {mongoUser?._id}/>
               
               }
              

@@ -21,7 +21,8 @@ const pattaya = Pattaya({
   subsets :["latin"]
 })
 
-const CourseComponent = ({mongoId , courses} : {mongoId : string | undefined, courses : any[] | undefined}) => {
+const CourseComponent = ({mongoId , courses , isTeacher} :
+     {mongoId : string | undefined, courses : any[] | undefined , isTeacher : boolean}) => {
 
     const [opened, { open, close }] = useDisclosure(false);
     const [bankakk , setBankak] = useState<boolean>(false)
@@ -76,14 +77,14 @@ const CourseComponent = ({mongoId , courses} : {mongoId : string | undefined, co
                 <div>duration : 10 hours</div>
                 <div>rating : *****</div>
                 </div>
-               
+                  { isTeacher == false ?
                 <Button 
                     onClick={
                     ()=>{ open(); setTheItemId(item._id); console.log(theItemId)}
                     }>
                         Get Course
                 </Button>
-
+                   : null }
                 <Modal opened={opened} onClose={()=>{close() ; setBankak(!bankakk)}} title="Payment Method">
                     {
                         !bankakk ?

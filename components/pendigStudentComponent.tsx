@@ -1,19 +1,39 @@
 'use client'
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button } from '@mantine/core';
+import { Modal, Button, Indicator } from '@mantine/core';
 import React from 'react'
 import { CourseInterface, mongoUserInterface } from '@/lib/types';
 import { Accordion } from '@mantine/core';
+import { handleNewPendingforCourse } from '@/lib/actions/courseActions';
 
-const PendigStudentComponent = ({courses} : {courses : CourseInterface[] | undefined}) => {
+const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface[] | undefined , mongoId : string | undefined}) => {
     const [opened, { open, close }] = useDisclosure(false);
     console.log(courses);
 
-    const items = courses?.map((item : CourseInterface , index : number) => (
-      <Accordion.Item key={index} value={item.name}>
-        <Accordion.Control >{item.name}</Accordion.Control>
-        { item.pendingStudents.map((item : mongoUserInterface , index : number) => (
-          <Accordion.Panel key={index}>{item.name }</Accordion.Panel>
+    const handleAccept = async (courseId : string)=>{
+        await handleNewPendingforCourse(courseId ,mongoId ? mongoId : '')
+    }
+
+    const items = courses?.map((CourseItem : CourseInterface , index : number) => (
+      <Accordion.Item key={index} value={CourseItem.name}>
+        <Accordion.Control >
+          { CourseItem.newPending? 
+          <Indicator processing offset={20}>
+            <div className='p-2'>
+              {CourseItem.name}
+            </div></Indicator> 
+            : CourseItem.name
+          }
+        </Accordion.Control>
+        { CourseItem.pendingStudents.map((item : mongoUserInterface , index : number) => (
+          <Accordion.Panel key={index}>
+            <div className=' flex items-center justify-between'>
+            {item.name }
+            <Button onClick={()=> handleAccept(CourseItem._id)}>
+              accept
+            </Button>
+            </div>
+          </Accordion.Panel>
         ))}
         
       </Accordion.Item>

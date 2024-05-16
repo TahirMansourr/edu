@@ -73,10 +73,17 @@ export async function PendingStudentsForCourse( mongoId : string , courseId : st
     }
 }
 
-export async function handleNewPendingforCourse(courseId : string){
+export async function handleNewPendingforCourse(courseId : string , mongoId: string){
     try {
         connectToDB()
-        await Course.findOneAndUpdate({_id : courseId}, {$set : {newPending : false}})
+        await Course.findOneAndUpdate(
+            {_id : courseId},
+            {
+                $set : {newPending : false},
+                $pull : {pendingStudents : mongoId},
+                $push : {students :  mongoId}
+        },{upsert : true})
+        await User.findOneAndUpdate({_id : mongoId} , {$push : {courses : courseId}} , {upsert : true})
         return{ status : 'OK'}
     } catch (error) {
         throw new Error(`error at handlenewPending for course ; ${error}`)
