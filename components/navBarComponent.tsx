@@ -1,11 +1,12 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
-import { Button } from '@mantine/core'
+import { Indicator } from '@mantine/core'
 import Link from 'next/link'
 import React from 'react'
 import ThemeToggler from './themeToggler'
 import { currentUser } from '@clerk/nextjs/server'
 import { getMongoUser } from '@/lib/actions/userActions'
 import PendigStudentComponent from './pendigStudentComponent'
+import { CourseInterface } from '@/lib/types'
 
 const NavBarComponent = async () => {
   let isTeacher;
@@ -16,6 +17,8 @@ const NavBarComponent = async () => {
   if(Array.isArray(mongoUser)) {isTeacher = false}
   else{isTeacher = mongoUser?.isTeacher, console.log('this is your mongoUserbro' , mongoUser?.courses);
   }
+
+  const newPendingStudents: boolean | undefined = mongoUser?.courses.some(item => item.newPending === true);
 
   return (
     <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 py-4 px-3 flex justify-between items-center '>
@@ -29,7 +32,15 @@ const NavBarComponent = async () => {
             <SignedIn>
             { isTeacher ?
             <div>
-              <PendigStudentComponent courses = {mongoUser?.courses}/>
+              {
+                newPendingStudents && newPendingStudents ?
+                <Indicator processing color='red' size={16} position='top-start'> 
+                <PendigStudentComponent courses = {mongoUser?.courses}/>
+                </Indicator> :
+                <PendigStudentComponent courses = {mongoUser?.courses}/>
+              
+              }
+             
             </div>
             
            : null }

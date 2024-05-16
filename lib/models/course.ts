@@ -25,7 +25,8 @@ const courseSchema = new mongoose.Schema({
     pendingStudents : [{
         type : mongoose.Schema.Types.ObjectId,
          ref: "User"
-        }]
+        }],
+    newPending : Boolean
 })
 
 const Course = mongoose.models.Course || mongoose.model("Course" , courseSchema)

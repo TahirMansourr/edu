@@ -13,7 +13,7 @@ const PendigStudentComponent = ({courses} : {courses : CourseInterface[] | undef
       <Accordion.Item key={index} value={item.name}>
         <Accordion.Control >{item.name}</Accordion.Control>
         { item.pendingStudents.map((item : mongoUserInterface , index : number) => (
-          <Accordion.Panel>{item.name }</Accordion.Panel>
+          <Accordion.Panel key={index}>{item.name }</Accordion.Panel>
         ))}
         
       </Accordion.Item>

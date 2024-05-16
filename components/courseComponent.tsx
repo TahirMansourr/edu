@@ -103,7 +103,7 @@ const CourseComponent = ({mongoId , courses} : {mongoId : string | undefined, co
                             <p> REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.</p>
                             <p> You should be admitted within 24 hours.If you are not admitted within 24 hours please contact  us at eduemail@gmail.com</p>
                             </div>
-                          <Button onClick={()=> { mongoId &&  handleCompletedPayment(mongoId , theItemId as string) }}>Completed payment</Button>
+                          <Button onClick={()=> { mongoId &&  handleCompletedPayment(mongoId , theItemId ) }}>Completed payment</Button>
                         </div>
                     }
                    

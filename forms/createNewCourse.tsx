@@ -91,7 +91,7 @@ const CreateNewCourse = (
       </div>
       ))
 
-      async function handleSubmit(values : Omit<CourseInterface , 'posts' |'author' | 'pendingStudents'>){
+      async function handleSubmit(values : Omit<CourseInterface , 'posts' |'author' | 'pendingStudents'|'newPending'>){
         setLoading(true)
         await CreateCourse(values , mongoUserId).then((res : {status : string , message : string}) => {
           if(res.status === 'OK'){

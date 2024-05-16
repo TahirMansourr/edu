@@ -7,8 +7,10 @@ import User from '../models/user'
 import { CourseInterface } from '../types'
 import { courses } from '@/components/dummyData'
 
+type typeForCreateCourse = Omit<CourseInterface, 'posts'|'author'|'pendingStudents'| 'newPending'>
 
-export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'|'pendingStudents'> , author : string) {
+
+export async function CreateCourse(args : typeForCreateCourse , author : string) {
     try {
          connectToDB()
          const message = args._id != '' ? 'Successfully updated' : 'Successfully created'
@@ -63,10 +65,20 @@ export async function PendingStudentsForCourse( mongoId : string , courseId : st
     try {
         connectToDB()
         const requiredCourse = await Course.findOneAndUpdate({_id : courseId} ,
-             {$push : {pendingStudents :  mongoId }} , {upsert : true})
+             {$push : {pendingStudents :  mongoId } , $set : {newPending : true}} , {upsert : true})
         await requiredCourse.save()
         return {status : 'Ok' , message : 'pending'}
     } catch (error) {
         throw new Error(`error at pendingStudentForCourse : ${error}`)
+    }
+}
+
+export async function handleNewPendingforCourse(courseId : string){
+    try {
+        connectToDB()
+        await Course.findOneAndUpdate({_id : courseId}, {$set : {newPending : false}})
+        return{ status : 'OK'}
+    } catch (error) {
+        throw new Error(`error at handlenewPending for course ; ${error}`)
     }
 }
