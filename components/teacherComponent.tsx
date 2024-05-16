@@ -36,7 +36,7 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                 </div>
                 <div>
                 <h1 className=' font-bold  shadow-sm mb-3'>My Courses</h1>
-                {mongoUser.courses.map((item : any , index : number) =>(
+                {mongoUser.courses && mongoUser.courses.map((item : any , index : number) =>(
                                 <div 
                                 key={index}
                                 className={`hover:cursor-pointer ${selectedCourse === item.name ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }

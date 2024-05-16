@@ -35,7 +35,7 @@ export async function CreateCourse(args : typeForCreateCourse , author : string)
            await newCourse.save()
             const updatedUser = await User.findOneAndUpdate(
                 { _id: author  },
-                { $push : {courses : newCourse} }
+                { $push : {courses : newCourse._id} }
                ,{upsert : true} );
               await updatedUser.save();
             }
@@ -67,6 +67,8 @@ export async function PendingStudentsForCourse( mongoId : string , courseId : st
         const requiredCourse = await Course.findOneAndUpdate({_id : courseId} ,
              {$push : {pendingStudents :  mongoId } , $set : {newPending : true}} , {upsert : true})
         await requiredCourse.save()
+        console.log('pending');
+        
         return {status : 'Ok' , message : 'pending'}
     } catch (error) {
         throw new Error(`error at pendingStudentForCourse : ${error}`)
@@ -83,7 +85,7 @@ export async function handleNewPendingforCourse(courseId : string , mongoId: str
                 $pull : {pendingStudents : mongoId},
                 $push : {students :  mongoId}
         },{upsert : true})
-        await User.findOneAndUpdate({_id : mongoId} , {$push : {courses : courseId}} , {upsert : true})
+        await User.findOneAndUpdate({_id : mongoId} , {$push : {courses : courseId}} )
         return{ status : 'OK'}
     } catch (error) {
         throw new Error(`error at handlenewPending for course ; ${error}`)

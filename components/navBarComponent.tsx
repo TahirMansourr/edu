@@ -18,7 +18,7 @@ const NavBarComponent = async () => {
   else{isTeacher = mongoUser?.isTeacher, console.log('this is your mongoUserbro' , mongoUser?.courses);
   }
 
-  const newPendingStudents: boolean | undefined = mongoUser?.courses.some(item => item.newPending === true);
+  const newPendingStudents: boolean | undefined = mongoUser?.courses && mongoUser.courses.length > 0 ? mongoUser?.courses.some(item => item.newPending === true) : undefined;
 
   return (
     <div className=' bg-gradient-to-tr from-slate-200 to-blue-600 py-4 px-3 flex justify-between items-center '>

@@ -53,7 +53,6 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                                 onClick={() => {
                                     handleSelectedCourse(item.name , 'C')
                                     setSelectedCourseIdforQndA(item._id)
-                                    // getMyCourses()
                                 }}
                                 >
                                     {item.name} 

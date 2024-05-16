@@ -10,8 +10,8 @@ const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface
     const [opened, { open, close }] = useDisclosure(false);
     console.log(courses);
 
-    const handleAccept = async (courseId : string)=>{
-        await handleNewPendingforCourse(courseId ,mongoId ? mongoId : '')
+    const handleAccept = async (id : string, courseId : string)=>{
+        await handleNewPendingforCourse( courseId , id)
     }
 
     const items = courses?.map((CourseItem : CourseInterface , index : number) => (
@@ -29,7 +29,7 @@ const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface
           <Accordion.Panel key={index}>
             <div className=' flex items-center justify-between'>
             {item.name }
-            <Button onClick={()=> handleAccept(CourseItem._id)}>
+            <Button onClick={()=> handleAccept(item._id ,CourseItem._id)}>
               accept
             </Button>
             </div>
