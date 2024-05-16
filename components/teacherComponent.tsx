@@ -27,19 +27,19 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
 
     }
   return (
-    <main className={`flex flex-col border m-5 ${openSan.className}`}>
-    <section className=' flex gap-5 p-3'>
-        <div className=' flex-none w-[15rem] border-r'>
+    <main className={`sm:flex sm:flex-col sm:border m-5 ${openSan.className}`}>
+    <section className=' sm:flex sm:gap-5 sm:p-3 '>
+        <div className=' sm:flex-none sm:w-[15rem] sm:border-r border shadow-sm pb-2'>
             <div className='flex flex-col gap-3 '>
-                <div className=' font-bold mx-auto text-xl shadow-sm mb-5'>
+                <div className=' font-bold mx-auto text-xl shadow-sm sm:mb-5 mb-2'>
                     {mongoUser.name}
                 </div>
                 <div>
-                <h1 className=' font-bold  shadow-sm mb-3'>My Courses</h1>
+                <h1 className=' font-bold sm:shadow-sm sm:mb-3 p-2'>My Courses</h1>
                 {mongoUser.courses && mongoUser.courses.map((item : any , index : number) =>(
                                 <div 
                                 key={index}
-                                className={`hover:cursor-pointer ${selectedCourse === item.name ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
+                                className={`hover:cursor-pointer p-1 ${selectedCourse === item.name ? 'ease-in duration-300 text-white bg-blue-400 rounded-md transit w-fit px-3 py-1 scale-105 translate-x-1 m-2 shadow-lg' : null}` }
                                 onClick={() => {
                                     handleSelectedCourse(item.name )
                                 }}
@@ -63,18 +63,17 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                 </div>              
             </div>
         </div>
-        <div className=' flex flex-initial flex-col gap-3 w-[38rem] border-r pr-4 '>
+        <div className=' sm:flex sm:flex-initial sm:flex-col sm:gap-3 sm:w-[38rem] sm:border-r border p-1 mt-2 sm:pr-4 '>
             <div className=' mx-auto font-bold'>{selectedCourse}</div>
             <div className='w-full mx-auto '>{
                 requiredCourse ?
                 <CreateNewCourse 
                  requiredCourse = {requiredCourse}
                  mongoUserId= {mongoUser._id}
-                 /> : <h1 className=' text-center font-bold p-4 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose a course to Update or Add a new Course</h1>}
+                 /> : <h1 className=' text-center font-bold sm:p-4 sm:mt-3 mt-1 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose a course to Update or Add a new Course</h1>}
             </div>
-           {requiredCourse ? <div className=''>rest of course</div> : null } 
         </div>
-        <div className=' flex flex-col flex-initial w-[40rem] gap-3'>
+        <div className=' flex flex-col flex-initial sm:w-[40rem] gap-3'>
             {requiredCourse ? <div className=' mx-auto font-bold '>Q&A</div> : null}
             { requiredCourse &&
                 requiredCourse ? 
@@ -84,7 +83,7 @@ const TeacherComponent = ({mongoUser} : {mongoUser : mongoUserInterface}) => {
                     isTeacher = {mongoUser.isTeacher}
                     courseId={requiredCourse._id}
                     /> 
-              : <h1 className=' text-center font-bold p-4 mt-3 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose Course to see Q&A Section</h1>
+              : <h1 className=' text-center font-bold sm:p-4 sm:mt-3 mt-1 shadow-xl bg-gradient-to-br from-blue-700 to-blue-400 text-white rounded-lg mx-auto'>Choose Course to see Q&A Section</h1>
             }
            
         </div>
