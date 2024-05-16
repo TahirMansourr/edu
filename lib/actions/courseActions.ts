@@ -8,7 +8,7 @@ import { CourseInterface } from '../types'
 import { courses } from '@/components/dummyData'
 
 
-export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'> , author : string) {
+export async function CreateCourse(args : Omit<CourseInterface , 'posts'|'author'|'pendingStudents'> , author : string) {
     try {
          connectToDB()
          const message = args._id != '' ? 'Successfully updated' : 'Successfully created'

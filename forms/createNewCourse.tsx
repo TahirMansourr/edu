@@ -11,7 +11,9 @@ import { CourseInterface} from '@/lib/types';
 import { Loader } from '@mantine/core'
 
 
-const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,requiredCourse : CourseInterface}) => {
+const CreateNewCourse = (
+  {requiredCourse , mongoUserId} : 
+  {mongoUserId : string, requiredCourse : CourseInterface}) => {
 
     const form = useForm({
         mode: 'uncontrolled',
@@ -89,7 +91,7 @@ const CreateNewCourse = ({requiredCourse , mongoUserId} : {mongoUserId : string,
       </div>
       ))
 
-      async function handleSubmit(values : Omit<CourseInterface , 'posts' |'author'>){
+      async function handleSubmit(values : Omit<CourseInterface , 'posts' |'author' | 'pendingStudents'>){
         setLoading(true)
         await CreateCourse(values , mongoUserId).then((res : {status : string , message : string}) => {
           if(res.status === 'OK'){
