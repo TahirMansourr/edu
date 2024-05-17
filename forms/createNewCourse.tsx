@@ -130,7 +130,7 @@ const CreateNewCourse = (
         <TextInput
           {...form.getInputProps('duration')}
           key={form.key('duration')}
-          label="Price"
+          label="Duration"
           placeholder="$100"
           pb={10}
         />

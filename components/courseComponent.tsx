@@ -52,6 +52,7 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
     }
   return (
     <main className=" min-h-screen flex flex-col pt-4 ">
+        <h1 className=' text-center'>Sign in as a demo student (username : demoStudent , password : demoStudent123)</h1>
         {
             mongoUserCourses ? mongoUserCourses.map((item : CourseInterface , index : number)=>(
      <section className="sm:flex  flex flex-col w-screen justify-center items-center " key={index}>
