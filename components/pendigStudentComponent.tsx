@@ -1,17 +1,20 @@
 'use client'
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button, Indicator } from '@mantine/core';
-import React from 'react'
+import { Modal, Button, Indicator, Loader } from '@mantine/core';
+import React, { useState } from 'react'
 import { CourseInterface, mongoUserInterface } from '@/lib/types';
 import { Accordion } from '@mantine/core';
 import { handleNewPendingforCourse } from '@/lib/actions/courseActions';
 
 const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface[] | undefined , mongoId : string | undefined}) => {
     const [opened, { open, close }] = useDisclosure(false);
+    const [loading , setLoading] = useState<boolean>(false)
+    const [res , setRes] = useState<string>()
     console.log(courses);
 
     const handleAccept = async (id : string, courseId : string)=>{
-        await handleNewPendingforCourse( courseId , id)
+        setLoading(true)
+        await handleNewPendingforCourse( courseId , id).then((res : any) => res.status === 'OK'? setRes("Done") : setRes("Oops something went wrong"))
     }
 
     const items = courses?.map((CourseItem : CourseInterface , index : number) => (
@@ -30,7 +33,7 @@ const PendigStudentComponent = ({courses , mongoId} : {courses : CourseInterface
             <div className=' flex items-center justify-between'>
             {item.name }
             <Button onClick={()=> handleAccept(item._id ,CourseItem._id)}>
-              accept
+              {res? res : loading? <Loader></Loader> : "Accept"}
             </Button>
             </div>
           </Accordion.Panel>
