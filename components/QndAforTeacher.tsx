@@ -17,8 +17,9 @@ const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
     const [loading , setLoading] = useState<boolean>(false)
 
     useEffect(()=>{
-        setLoading(true)
+        
         async function getContentAtStart() {
+            setLoading(true)
             const content = await getMyPosts({lessonFromCourse : 'null', courseId , isTeacher : true})
             const groupedContent = content.data.reduce((grouped : any, item : any) => {
                 // Check if there's already an array for this lessonFromCourse
@@ -38,7 +39,7 @@ const QndAforTeacher = ({ id , courseId , isTeacher , name} : Props) => {
             setContent(contentArray)
             setLoading(false)
         }
-        getContentAtStart()
+       courseId? getContentAtStart() : null
     } ,[courseId])
 
   return (

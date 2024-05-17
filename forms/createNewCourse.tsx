@@ -135,8 +135,8 @@ const CreateNewCourse = (
           pb={10}
         />
      
-        <div className=' flex gap-5 '>
-          <div className=' text-sm'>Choose Course Picture</div>
+        <div className=' flex gap-5 sm:gap-5 '>
+          <div className=' text-sm sm:mr-2'>Choose Course Picture</div>
         <UploadButton
         endpoint="imageUploader"
         {...form.getInputProps('coursePicture')}
@@ -192,74 +192,4 @@ const CreateNewCourse = (
 
 export default CreateNewCourse
 
- // const previews = files.map((file, index) => {
-      //   const imageUrl = URL.createObjectURL(file);
-      //   return <Image 
-      //   key={index} 
-      //   src={imageUrl} 
-      //   onLoad={() => URL.revokeObjectURL(imageUrl)} 
-      //   w={300}
-      //   h={300}
-      //   p={4}
-      //   mt={9}
-      //   radius={20}
-        
-      //   className=' rounded-lg mx-auto mt-3 pt-4'
-
-      //   />;
-      // });
-      
-      {/* <FileInput 
-        label = 'Add Course Image'
-        key={form.key('coursePicture')}
-        placeholder = 'Click here to add Course Picture'
-        {...form.getInputProps(`coursePicture`)}
-        onChange={(e) => pictureChange(e)}
-        /> */}
-     
-         {/* <Text mt="md">Form values:</Text>
-    <Code block>{JSON.stringify(form.values, null, 2)}</Code>
-
-    <Text mt="md">Submitted values:</Text>
-    <Code block>{submittedValues ? JSON.stringify(submittedValues, null, 2) : '–'}</Code> */}
-
-      {/* <FileInput 
-                label = 'add video'
-                w={100}
-                
-                placeholder = 'click to add video'
-                {...form.getInputProps(`videos.${index}.video`)}
-                onChange={(e) => videoChange(e , index)}
-                /> */}
-
-              //   const pictureChange = (event : File | null)=>{
-              //     const fileReader = new FileReader()
-              //     if(event ){
-              //         const file = event
-              //         setFiles([event])
-              //         fileReader.onload = (event) => {
-              //             const picDataUrl = event.target?.result?.toString() || ''
-              //             form.setFieldValue(`CoursePicture` , picDataUrl)
-              //             console.log(picDataUrl)
-              //         }
-              //         console.log(event);
-              //         fileReader.readAsDataURL(file)
-              //     }
-              // }
-        
-              // const videoChange = ( 
-              //     event : File | null ,
-              //     index : number
-              //   ) => {     
-              //         const fileReader = new FileReader()
-              //         if(event ){
-              //             const file = event
-              //             fileReader.onload = (event) => {
-              //                 const videoDataUrl = event.target?.result?.toString() || ''
-              //                 form.setFieldValue(`videos.${index}.video` , videoDataUrl)
-              //                 console.log(videoDataUrl)
-              //             }
-              //             console.log(event);
-              //             fileReader.readAsDataURL(file)
-              //         }
-              //   }
+ 
