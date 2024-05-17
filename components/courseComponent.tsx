@@ -1,6 +1,6 @@
 'use client'
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, Button } from '@mantine/core';
+import { Modal, Button, Loader } from '@mantine/core';
 import Image from "next/image";
 import ielts from '.././public/ielts.png'
 import { Boogaloo } from "next/font/google";
@@ -28,6 +28,8 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
     const [bankakk , setBankak] = useState<boolean>(false)
     const [mongoUserCourses , setMongoUserCourses] = useState<CourseInterface[]>()
     const [theItemId , setTheItemId] = useState<string>('')
+    const [loading , setLoading] = useState<boolean>(false)
+    const [res , setRes] = useState<string>()
 
     useEffect(()=>{
         async function getMyCoursesAtStart(){
@@ -40,7 +42,11 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
     },[])
 
     async function handleCompletedPayment(requesterId : string , courseId : string){
-        await PendingStudentsForCourse(requesterId , courseId)
+        setLoading(true)
+        await PendingStudentsForCourse(requesterId , courseId).then((res) =>(
+         res.status === "OK" ? setRes(res.message) : setRes(res.message)
+         ))
+         setLoading(false)
         console.log(courseId);
         
     }
@@ -91,7 +97,7 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
                   
                 <Modal opened={opened} onClose={()=>{close() ; setBankak(!bankakk)}} title="Payment Method">
                     {
-                        !bankakk ?
+                        mongoId ? !bankakk ?
                         <Image 
                             src={bankak}
                             width={200}
@@ -104,12 +110,18 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
                         
                         <div>
                             <div className='flex flex-col'>
-                            <h1> Send the amount on to account number <b className=' underline'>432432</b> and <b>write your username</b> on the comment section.</h1>
-                            <p> REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.</p>
-                            <p> You should be admitted within 24 hours.If you are not admitted within 24 hours please contact  us at eduemail@gmail.com</p>
+                            
+                           <h1 className='mb-2'> Send the amount on to account number <b className=' underline'>123456</b> and <b>write your username</b> on the comment section.</h1>
+                           <br/>
+
+                            <p className='mb-2'> REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.</p>
+                            <p className='mb-2'> You should be admitted within 24 hours.If you are not admitted within 24 hours please contact  us at eduemail@gmail.com</p>
                             </div>
-                          <Button onClick={()=> { mongoId &&  handleCompletedPayment(mongoId , theItemId ) }}>Completed payment</Button>
-                        </div>
+                          <div className=' w-full flex justify-center'>
+                          <Button onClick={()=> { mongoId &&  handleCompletedPayment(mongoId , theItemId ) }}>
+                           {res ? res : loading? <div className=' flex items-center'> Requesting <Loader></Loader></div> : "Completed Payment"}</Button>
+                          </div>
+                        </div> : <div>Please Sign in or Sign Up to getCourse</div>
                     }
                    
                 </Modal>

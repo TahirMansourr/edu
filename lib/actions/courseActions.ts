@@ -66,12 +66,20 @@ export async function getMyCourses() {
 export async function PendingStudentsForCourse( mongoId : string , courseId : string){
     try {
         connectToDB()
-        const requiredCourse = await Course.findOneAndUpdate({_id : courseId} ,
+        const courseOfpendingStudent = await Course.findOne({_id : courseId})
+        const isAlreadyPending = courseOfpendingStudent.pendingStudents.some((item : any) => item == mongoId )
+        console.log(isAlreadyPending , 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        if(!isAlreadyPending)
+        {
+             const requiredCourse = await Course.findOneAndUpdate({_id : courseId} ,
              {$push : {pendingStudents :  mongoId } , $set : {newPending : true}} , {upsert : true})
         await requiredCourse.save()
         console.log('pending');
         
-        return {status : 'Ok' , message : 'pending'}
+        return {status : 'OK' , message : 'pending'}
+    }else{
+        return {Status : 'OK' , message : 'You already ordered this Course'}
+    }
     } catch (error) {
         throw new Error(`error at pendingStudentForCourse : ${error}`)
     }
