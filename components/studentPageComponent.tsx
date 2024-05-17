@@ -40,9 +40,9 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
 
 
   return (
-    <main className={`flex flex-col border m-5 ${openSan.className}`}>
-        <section className=' flex gap-5 p-3'>
-            <div className=' flex-none w-[15rem] border-r pr-2'>
+    <main className={`sm:flex sm:flex-col border sm:m-5 ${openSan.className}`}>
+        <section className=' sm:flex sm:gap-5 sm:p-3'>
+            <div className=' sm:flex-none sm:w-[15rem] sm:border-r sm:pr-2 p-3 border shadow-md m-3'>
                 <div className='flex flex-col gap-3 '>
                     <div className=' font-bold mx-auto text-xl shadow-sm mb-5'>
                         {mongoUser.name}
@@ -65,17 +65,17 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                     </div>
                 </div>
             </div>
-            <div className=' flex flex-initial flex-col gap-3 w-[45rem] border-r'>
+            <div className=' flex flex-initial flex-col gap-3 sm:w-[45rem] sm:border-r border m-2 p-1 shadow-md mb-2 '>
                 
             <div className='ease-in-out mx-auto font-bold text-lg p-2 shadow-lg transition-all duration-500 rounded-md'>
                 {selectedCourse}
             </div>
                 { wantedVideo ? 
-                <VideoPlayer videoUrl = {wantedVideo}/> : <h1 className=' min-h-[30rem]'>Choose a lesson</h1>}
-                <div className=' mt-5'>Rest of the lessons</div>
+                <VideoPlayer videoUrl = {wantedVideo}/> : <h1 className=' sm:min-h-[30rem]'>Choose a course then choose a lesson</h1>}
+                <div className=' mt-5 ml-2'>Rest of the lessons</div>
                 <div>    
                       {requiredCourse?.videos.map((item : any , index : number) => (
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-2 ml-1'>
                             <FaPlayCircle 
                             color={selectedLesson === item.title ? 'rgb(0,225,225)' : 'black'}
                             size={selectedLesson === item.title ? 25 : 15}
@@ -91,7 +91,7 @@ const StudentPageComponent = ({ mongoUser} : {mongoUser : mongoUserInterface}) =
                       ))}
                 </div>
             </div>
-            <div className=' flex flex-initial w-[30rem]'>
+            <div className=' sm:flex sm:flex-initial sm:w-[40rem] border shadow-md p-2'>
                <QndA 
                id = {mongoUser._id}
                courseId = {selectedCourseIdforQndA as string}

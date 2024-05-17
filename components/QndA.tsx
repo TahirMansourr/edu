@@ -67,12 +67,11 @@ const QndA =  (
         alt='q and a section'
         className='w-full h-fit absolute -top-1  '
         />
-        <h1 className='text-center absolute bottom-5'> Choose a lesson from the course to view the Q&A section</h1>
     </section>
    }
       { 
       lessonFromCourse?
-      <footer className=' absolute bottom-0 w-full pt-3'>
+      <footer className=' sm:absolute sm:bottom-0 w-full pt-3'>
         <QuestionForm 
           id = {id}
           courseId={courseId}
