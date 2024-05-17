@@ -74,19 +74,22 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
                   {item.author.name }
               </div>
               <br />
-              <div className="flex justify-around w-full items-center">
-                <div className="flex gap-5">
+              <div className="flex ">
+                <div className="sm:flex sm:gap-5 flex flex-col gap-2">
                 <div>duration : 10 hours</div>
                 <div>rating : *****</div>
-                </div>
-                  { isTeacher == false ?
+                <div>Price : $100</div>
+                { isTeacher == false ?
                 <Button 
+                className=''
                     onClick={
                     ()=>{ open(); setTheItemId(item._id); console.log(theItemId)}
                     }>
                         Get Course
                 </Button>
                    : null }
+                </div>
+                  
                 <Modal opened={opened} onClose={()=>{close() ; setBankak(!bankakk)}} title="Payment Method">
                     {
                         !bankakk ?
