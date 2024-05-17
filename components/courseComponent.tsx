@@ -2,7 +2,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, Loader } from '@mantine/core';
 import Image from "next/image";
-import ielts from '.././public/ielts.png'
+import ielts from '.././public/photo_album-image_placeholder-thumbnail-image-book-album-picture-512.webp'
 import { Boogaloo } from "next/font/google";
 import { Pattaya } from "next/font/google";
 import bankak from '../public/bankak.jpeg'
@@ -113,7 +113,6 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
                             
                            <h1 className='mb-2'> Send the amount on to account number <b className=' underline'>123456</b> and <b>write your username</b> on the comment section.</h1>
                            <br/>
-
                             <p className='mb-2'> REMEBER: ALWAYS MAKE A SCREENSHOT OF YOUR TRANSACTIONS.</p>
                             <p className='mb-2'> You should be admitted within 24 hours.If you are not admitted within 24 hours please contact  us at eduemail@gmail.com</p>
                             </div>
