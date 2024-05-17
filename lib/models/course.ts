@@ -26,7 +26,9 @@ const courseSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
          ref: "User"
         }],
-    newPending : Boolean
+    newPending : Boolean,
+    price : String, 
+    duration : String
 })
 
 const Course = mongoose.models.Course || mongoose.model("Course" , courseSchema)

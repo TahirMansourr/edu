@@ -48,11 +48,11 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
     <main className=" min-h-screen flex flex-col pt-4 ">
         {
             mongoUserCourses ? mongoUserCourses.map((item : CourseInterface , index : number)=>(
-     <section className="sm:flex sm:w-screen flex flex-col w-screen justify-center items-center " key={index}>
+     <section className="sm:flex  flex flex-col w-screen justify-center items-center " key={index}>
         <section 
-        className="sm:flex sm:justify-between sm:w-[90%] sm:mx-auto sm:items-center sm:border
+        className="sm:flex sm:justify-between  sm:mx-auto sm:items-center sm:border
                    sm:p-4 sm:rounded-xl sm:shadow-md w-[90%] border p-2 rounded-md mb-2">
-            <div className={`${georama.className} flex flex-col text-lg`}>
+            <div className={`${georama.className} flex flex-col text-lg sm:w-full`}>
 
               <div className="underline">
                   Course Name
@@ -76,9 +76,8 @@ const CourseComponent = ({mongoId , courses , isTeacher} :
               <br />
               <div className="flex ">
                 <div className="sm:flex sm:gap-5 flex flex-col gap-2">
-                <div>duration : 10 hours</div>
-                <div>rating : *****</div>
-                <div>Price : $100</div>
+                <div>{item.duration? <p>Duration {item.duration }</p>: null}</div>
+                <div>{item.price? <p>Price : {item.price}</p>:null}</div>
                 { isTeacher == false ?
                 <Button 
                 className=''

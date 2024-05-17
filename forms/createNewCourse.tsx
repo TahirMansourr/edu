@@ -22,7 +22,9 @@ const CreateNewCourse = (
           content: requiredCourse.content? requiredCourse.content : '' , 
           videos :requiredCourse.videos ? requiredCourse.videos : [{title : '' , video :''}] ,
           coursePicture : requiredCourse.coursePicture? requiredCourse.coursePicture : '',
-          _id : requiredCourse._id ? requiredCourse._id : ''
+          _id : requiredCourse._id ? requiredCourse._id : '',
+          price : requiredCourse.price? requiredCourse.price : '',
+          duration : requiredCourse.duration? requiredCourse.duration : ''
          },
         validate: {
           name: hasLength({ min: 3 }, 'Must be at least 3 characters'),
@@ -39,7 +41,9 @@ const CreateNewCourse = (
           content: requiredCourse.content? requiredCourse.content : '' , 
           videos :requiredCourse.videos ? requiredCourse.videos : [{title : '' , video :''}] ,
           coursePicture : requiredCourse.coursePicture? requiredCourse.coursePicture : '',
-          _id : requiredCourse._id ? requiredCourse._id : ''
+          _id : requiredCourse._id ? requiredCourse._id : '',
+          price : requiredCourse.price ? requiredCourse.price : '',
+          duration : requiredCourse.duration? requiredCourse.duration : ''
         })
         
       }, [requiredCourse , mongoUserId])
@@ -109,13 +113,27 @@ const CreateNewCourse = (
     
     >
         <div className=' mx-auto w-full'>
-    <TextInput
-      {...form.getInputProps('name')}
-      key={form.key('name')}
-      label="Course Name"
-      placeholder="Course Name"
-      pb={10}
-    />
+        <TextInput
+          {...form.getInputProps('name')}
+          key={form.key('name')}
+          label="Course Name"
+          placeholder="Course Name"
+          pb={10}
+        />
+        <TextInput
+          {...form.getInputProps('price')}
+          key={form.key('price')}
+          label="Price"
+          placeholder="$100"
+          pb={10}
+        />
+        <TextInput
+          {...form.getInputProps('duration')}
+          key={form.key('duration')}
+          label="Price"
+          placeholder="$100"
+          pb={10}
+        />
      
         <div className=' flex gap-5 '>
           <div className=' text-sm'>Choose Course Picture</div>

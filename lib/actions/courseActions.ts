@@ -18,7 +18,9 @@ export async function CreateCourse(args : typeForCreateCourse , author : string)
                 content : args.content,
                 videos : args.videos,
                 author ,
-                coursePicture : args.coursePicture
+                coursePicture : args.coursePicture,
+                price : args.price,
+                duration : args.duration
             } , {upsert : true , new: true })
             await newCourse.save()
         }else{
@@ -27,7 +29,9 @@ export async function CreateCourse(args : typeForCreateCourse , author : string)
                 content : args.content,
                 videos : args.videos,
                 author ,
-                coursePicture : args.coursePicture
+                coursePicture : args.coursePicture,
+                price : args.price,
+                duration : args.duration
             })
 
            await newCourse.save()
@@ -39,7 +43,7 @@ export async function CreateCourse(args : typeForCreateCourse , author : string)
             }
             return {
                 status : 'OK',
-                message  : 'successfull'
+                message 
             }
     } catch (error : any) {
         throw new Error( `error ${error}`)

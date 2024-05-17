@@ -21,7 +21,9 @@ export interface CourseInterface{
     }[],
     author :mongoUserInterface,
     pendingStudents : mongoUserInterface[],
-    newPending : boolean
+    newPending : boolean,
+    price : string,
+    duration : string
         
 }
 
